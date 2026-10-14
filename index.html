@@ -1,0 +1,1147 @@
+<head>
+	<title>YEEEEEEEEEAH YOU WANT THESE KINDS OF GAMES YEAAH WELL HERE YOU CAN HAVE IT FREE OF ROBLOX LAUNCHER REQUIREMENT EAT IT WHILE YOU CAN MOTHERFUCKER</title>
+	<style>
+	
+	* {
+		font-family: serif;
+	}
+	div,button {
+		margin: 0;
+		padding: 0;
+		position: absolute;
+		position: 0;
+		z-index: 0;
+		text-align: center;
+		font-weight: bold;
+	}
+	
+	svg {
+		margin: 0;
+		padding: 0;
+		position: absolute;
+		z-index: 0;
+	}
+	
+	@keyframes bounceAndChange {
+	  0% {transform: translate(-103.5px,-103.5px);}
+	  100% {transform: translate(103.5px,103.5px);}
+	}
+	@keyframes ass {
+	  0% {transform: scale(1, 1);}
+	  50% {transform: scale(1.1, 1.1);}
+	  100% {transform: scale(1, 1);}
+	}
+	</style>
+	<script src="break_eternity.js"></script>
+</head>
+<body>
+	<div id="holdBackground" style="overflow: hidden; z-index: -3; top: 0; left: 0;">
+		<div id="background" style="top: 0; left: 0; transform: translate(-207px, -207px); background-image:url('background.png'); animation-composition: add; animation: bounceAndChange 2.811s linear infinite, ass 2.811s ease infinite;"></div>
+	</div>
+	<svg id="svg" style="top: 0; left: 0; pointer-events: none; z-index: -2;" viewBox="0 0 1000 1000"></svg>
+	<button id="saveFile1" onclick="save(1); selectElement('saveText').innerHTML = 'Current Save File: #1';" style="font-size: 20px; background-color: gray; border: 4px black solid;">Save File #1</button>
+	<button id="saveFile2" onclick="save(2); selectElement('saveText').innerHTML = 'Current Save File: #2';" style="font-size: 20px; background-color: gray; border: 4px black solid;">Save File #2</button>
+	<button id="saveFile3" onclick="save(3); selectElement('saveText').innerHTML = 'Current Save File: #3';" style="font-size: 20px; background-color: gray; border: 4px black solid;">Save File #3</button>
+	<button id="export" onclick="exportus()" style="font-size: 20px; background-color: gray; border: 4px black solid;">Export</button>
+	<button id="import" onclick="importus()" style="font-size: 20px; background-color: gray; border: 4px black solid;">Import</button>
+	<button id="hardReset" onclick="hardReset();" style="font-size: 20px; background-color: gray; border: 4px black solid;">HARD RESET</button>
+	<button id="toggleOptions" onclick="toggleOptions()" style="transform:rotate(180deg);font-size: 20px; background-color: gray; border: 4px black solid;">v</button>
+	<button id="pause" onclick="selectElement('pause').innerHTML = selectElement('pause').innerHTML=='PAUSE'?'START':'PAUSE';" style="top:800;left:50;position:fixed;height:100px;width:100px;">PAUSE</button>
+	<div id="saveText" style="top: 0; left: 0;">Pick a Save File first</div>
+	<div id="points"></div>
+	<div id="newsBlank" style="overflow: hidden; right; top: 0; left: 0;">
+		<div id="news" style="white-space: nowrap; text-align: center; top: 0; left: 0;"></div>
+	</div>
+	<script>
+		let gameStuff = {offlineTime: new Decimal(0), whatTimeIsIt: Date.now(), currentSaveFile: 0, points: new Decimal(0), anotherPoints: new Decimal(0),backgroundValue: new Decimal(0),tab:0, upgrades: {}, "A|5": 0, "A|5:B": {xp: new Decimal(0), level: new Decimal(1)}, "A|5:C": new Decimal(0), id: "xxxolegxxx.github.io/tree-roblox-idle-game"}
+		let backUp = gameStuff
+		let time = [new Decimal(Date.now()),new Decimal(0),new Decimal(0)]
+		let tabNames = ["","A|"]
+		
+		let youShouldSwitchTabsNOW = false
+		let pushToTheRight = [0,0]
+		const thatNumber = 937/32
+		let upg = [
+			["1",0,0,[]],
+			["2",0,thatNumber*7,["1"]],
+			["3",0,thatNumber*14,["2"]],
+			["4",0,thatNumber*21,["3"]],
+			["4.1",thatNumber*-10,thatNumber*21,["4"]],
+			["4.2",thatNumber*10,thatNumber*21,["4"]],
+			["5",0,thatNumber*28,["4"]],
+			["6",0,thatNumber*35,["5"]],
+			["7",0,thatNumber*42,["6"]],
+			["8",0,thatNumber*49,["7"]],
+			["9",0,thatNumber*56,["8"]],
+			["10",0,thatNumber*63,["9"]],
+			["A|1",0,0,[]],
+			["A|2:A",thatNumber*-5,thatNumber*7,["A|1"]],
+			["A|2:B",thatNumber*5,thatNumber*7,["A|1"]],
+			["A|3:A",thatNumber*-5,thatNumber*14,["A|2:A"]],
+			["A|3:B",thatNumber*5,thatNumber*14,["A|2:B"]],
+			["A|4",0,thatNumber*21,["A|3:A","A|3:B"]],
+			["A|5:A",thatNumber*-10,thatNumber*28,["A|4"]],
+			["A|5:B",0,thatNumber*28,["A|4"]],
+			["A|5:C",thatNumber*10,thatNumber*28,["A|4"]],
+			["A|6:A",thatNumber*-10,thatNumber*35,["A|5:A"]],
+			["A|6:B",0,thatNumber*35,["A|5:B"]],
+			["A|6:C",thatNumber*10,thatNumber*35,["A|5:C"]],
+			["A|7:A",thatNumber*-10,thatNumber*42,["A|6:A"]],
+			["A|7:B",0,thatNumber*42,["A|6:B"]],
+			["A|7:C",thatNumber*10,thatNumber*42,["A|6:C"]],
+			["A|8:A",thatNumber*-10,thatNumber*49,["A|7:A"]],
+			["A|8:B",0,thatNumber*49,["A|7:B"]],
+			["A|8:C",thatNumber*10,thatNumber*49,["A|7:C"]],
+			["A|9",0,thatNumber*56,["A|8:A", "A|8:B", "A|8:C"]],
+			["A|10",0,thatNumber*63,["A|9"]],
+		]
+		let news = ["navi looking bum","The More The Merrier", "Can you believe it guys? Update! Just a week away!","... is it just me, or is it getting janky over here?", "Mmmmmmmmm... Antimatter Don-","i ran out of ideas", "Did You Know That... Animating background through animation causes way less lag than using background-position?",'eval("selectElement("this")"+".getBoundingClientRect()".repeat(999))']
+		selectElement("news").innerHTML = news[Math.floor(Math.random()*news.length)]
+		let newsIncremental = window.innerWidth+selectElement("news").getBoundingClientRect().width/2
+		
+		function toggleOptions(){
+			selectElement('toggleOptions').style.transform = selectElement('toggleOptions').style.transform==""?"rotate(180deg)":""
+			let buttonList = ["saveFile1","saveFile2","saveFile3","export","import","hardReset"]
+			for(let i=0;i<buttonList.length;i++){
+				if(selectElement('toggleOptions').style.transform==""){
+					selectElement(buttonList[i]).style.opacity = 0
+					selectElement(buttonList[i]).style["pointer-events"] = "none"
+				}
+				else {
+					selectElement(buttonList[i]).style.opacity = 1
+					selectElement(buttonList[i]).style["pointer-events"] = "auto"
+				}
+			}
+			selectElement("toggleOptions").style.top = Math.max(window.scrollY, thatNumber*3)+thatNumber*(selectElement('toggleOptions').style.transform==""?1:7)-(selectElement('toggleOptions').style.transform==""?0:16)
+		}
+		
+		
+		for(let i=1;i<4;i++){
+			if(localStorage.getItem("xxxolegxxx.github.io/tree-roblox-idle-game savefile"+i)) {
+				selectElement("saveFile"+i).style["background-color"] = "white"
+			}
+		}
+		
+		function save(x, layered=false){
+			for(let i=1;i<4;i++){
+				if(localStorage.getItem("xxxolegxxx.github.io/tree-roblox-idle-game savefile"+i) && !layered) {
+					selectElement("saveFile"+i).style["background-color"] = "white"
+				}
+				else if(!layered){
+					selectElement("saveFile"+i).style["background-color"] = "gray"
+				}
+				if(x==i && !layered)
+					selectElement("saveFile"+x).style["background-color"] = "lightgreen"
+			}
+			if(!localStorage.getItem("xxxolegxxx.github.io/tree-roblox-idle-game savefile"+x) && !layered){
+				gameStuff.currentSaveFile = x
+				return 0
+			}
+			let temp = layered?x:JSON.parse(localStorage.getItem("xxxolegxxx.github.io/tree-roblox-idle-game savefile"+x))
+			let tempKeys = Object.keys(temp)
+			for(let i=0;i<tempKeys.length;i++){
+				switch(typeof temp[tempKeys[i]]){
+					case "string":
+						if(tempKeys[i]!="id")
+							temp[tempKeys[i]] = new Decimal(temp[tempKeys[i]])
+						break;
+					case "object":
+						save(temp[tempKeys[i]],true)
+						break;
+					default:
+						console.log("bitch")
+						break;
+				}
+			}
+			if(!layered){
+				gameStuff = temp
+				gameStuff.currentSaveFile = x
+				youShouldSwitchTabsNOW = true
+				selectElement("background").style.filter = ""
+				for(let i=0;i<Object.keys(upgrades).length;i++){
+					if(!gameStuff.upgrades[Object.keys(upgrades)[i]])
+						Object.assign(gameStuff.upgrades, {[Object.keys(upgrades)[i]]: new Decimal(0)})
+				}
+				for(let i=0;i<Object.keys(backUp).length;i++){
+					if(!gameStuff[Object.keys(backUp)[i]])
+						Object.assign(gameStuff, {[Object.keys(backUp)[i]]: backUp[Object.keys(backUp)[i]]})
+				}
+				gameStuff.offlineTime = gameStuff.offlineTime.add(Decimal.sub(Date.now(), gameStuff.whatTimeIsIt).div(1000))
+			}
+		}
+		
+		function exportus(){
+			navigator.clipboard.writeText(btoa(JSON.stringify(gameStuff)));
+		}
+		
+		function importus(){
+			let lol = atob(prompt("yooooooooo man lets go"))
+			if(JSON.parse(lol).id!="xxxolegxxx.github.io/tree-roblox-idle-game"){
+				alert("can't do much shit here bro")
+				return 0
+			}
+			localStorage.setItem("xxxolegxxx.github.io/tree-roblox-idle-game savefile"+gameStuff.currentSaveFile,lol)
+			save(gameStuff.currentSaveFile)
+		}
+		function hardReset(){
+			if(!gameStuff.currentSaveFile){
+				alert("you didn't pick save file dummy")
+				return 0
+			}
+			if(confirm("A|re you sure you want to hard reset that save file?")){
+				if(confirm("A|re you REALLY sure about that?")){
+				localStorage.removeItem("xxxolegxxx.github.io/tree-roblox-idle-game savefile"+gameStuff.currentSaveFile)
+				gameStuff.currentSaveFile = 0
+				window.location.reload()
+				}
+			}
+		}
+		
+		function addSolidTextShadow(size,color){
+			return `0px 0px ${size}px ${color},${size}px 0px ${size}px ${color},0px ${size}px ${size}px ${color},${-size}px 0px ${size}px ${color},0px ${-size}px ${size}px ${color},${size}px ${size}px ${size}px ${color}, ${-size}px ${size}px ${size}px ${color}, ${size}px ${-size}px ${size}px ${color}, ${-size}px ${-size}px ${size}px ${color}`
+		}
+		
+		let shadowOptimization = [
+			[addSolidTextShadow(thatNumber/16,"red"),addSolidTextShadow(thatNumber/8,"black"),addSolidTextShadow(thatNumber/32,"red"),addSolidTextShadow(thatNumber/16,"black"),addSolidTextShadow(thatNumber/16,"darkred")],
+			[addSolidTextShadow(thatNumber/16,"crimson"),addSolidTextShadow(thatNumber/8,"black"),addSolidTextShadow(thatNumber/32,"crimson"),addSolidTextShadow(thatNumber/16,"black"),addSolidTextShadow(thatNumber/16,"firebrick")]
+		]
+		
+		
+		function upgradeText(x){
+			return `<h1 id="shitass${x}"style="transform: translate(-50%, -50%); pointer-events: none; text-align: center; height: ${thatNumber*1.6}px; width: ${thatNumber*(Math.max(x.length/2+0.5,1.5))}px; background-color: black; box-shadow: ${upgrades[x].shadowStyle[4]}, ${upgrades[x].shadowStyle[1]}; text-shadow: ${upgrades[x].shadowStyle[0]}, ${upgrades[x].shadowStyle[1]}; font-size:${thatNumber}px; position:absolute;padding: 0; margin: 0;">${x}</h1><h1 style="transform: translate(-50%, 30%); pointer-events: none; text-shadow: ${upgrades[x].shadowStyle[2]}, ${upgrades[x].shadowStyle[3]}; font-size:${thatNumber/2}px; position:absolute;padding: 0; margin: 0;">[${gameStuff.upgrades[x]}${upgrades[x].limit()==Infinity?"":"/"+upgrades[x].limit()}]</h1><br><span style="pointer-events: none; text-shadow: ${upgrades[x].shadowStyle[0]}, ${upgrades[x].shadowStyle[1]}; font-size:${thatNumber}px;">${upgrades[x].title()}</h1><br><span style="text-shadow: ${upgrades[x].shadowStyle[2]}, ${upgrades[x].shadowStyle[3]}; display: block; margin-left: auto; margin-right: auto; width: ${thatNumber*9-thatNumber*1.25}px; font-size:${thatNumber/2}px;">${upgrades[x].desc()}${upgrades[x].effectText()?"<br>"+upgrades[x].effectText():""}${gameStuff.upgrades[x].gte(upgrades[x].limit())?"</span>":upgrades[x].costText()?"<br>"+upgrades[x].costText():""}`
+		}
+		
+		function totalUpgrades(){
+			let amount = new Decimal(0)
+			for(let i=0;i<Object.keys(gameStuff.upgrades).length;i++){
+				if(gameStuff.upgrades[Object.keys(gameStuff.upgrades)[i]].neq(0)) amount = amount.add(1)
+			}
+			return amount
+		}
+		
+		let upgrades = {
+			"1":{
+				title(){return "Point Generator"},
+				desc(){return " You've been there before, you've seen it before. Generates 0.937 points/sec"},
+				baseEffect(){return new Decimal(0.937)},
+				effect(){return this.baseEffect().mul(gameStuff.upgrades["1"])},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["req"]},
+				currencyRequired(){return ["points"]},
+				cost(){return [new Decimal(0)]},
+				costText(){return false},
+				color: "darkred",
+				shadowStyle: shadowOptimization[0],
+				unlocked(){return true},
+			},
+			"2":{
+				title(){return "One More Time"},
+				desc(){return "Generates 0.937 points/sec, again"},
+				baseEffect(){return new Decimal(0.937)},
+				effect(){return this.baseEffect().mul(gameStuff.upgrades["2"])},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["points"]},
+				cost(){return [new Decimal(3).div(getDiscounts()[0])]},
+				costText(){return `Cost: ${this.cost()[0].toFixed(2)} points`},
+				color: "darkred",
+				shadowStyle: shadowOptimization[0],
+				unlocked(){return gameStuff.upgrades["1"].neq(0)},
+			},
+			"3":{
+				title(){return "We are still in introduction phase"},
+				desc(){return "This one doesn't take away your points. Generates 0.3 points/sec"},
+				baseEffect(){return new Decimal(0.3)},
+				effect(){return this.baseEffect().mul(gameStuff.upgrades["3"])},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["req"]},
+				currencyRequired(){return ["points"]},
+				cost(){return [new Decimal(10).div(getDiscounts()[0])]},
+				costText(){return `Requirement: ${this.cost()[0].toFixed(2)} points`},
+				color: "darkred",
+				shadowStyle: shadowOptimization[0],
+				unlocked(){return gameStuff.upgrades["2"].neq(0)},
+			},
+			"4":{
+				title(){return "NERF?! IN MY TUTORIAL?!"},
+				desc(){return "Divides your point gain by /0.937 points/sec per purchase"},
+				baseEffect(){return new Decimal(0.937)},
+				effect(){return this.baseEffect().pow(gameStuff.upgrades["4"])},
+				effectText(){return `Effect: /${this.effect().toFixed(2)} point gain`},
+				limit(){return new Decimal(3)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["points"]},
+				cost(){return [[new Decimal(9),new Decimal(27),new Decimal(189)][gameStuff.upgrades["4"]].div(getDiscounts()[0])]},
+				costText(){return `Cost: ${this.cost()[0].toFixed(2)} points`},
+				color: "darkred",
+				shadowStyle: shadowOptimization[0],
+				unlocked(){return gameStuff.upgrades["3"].neq(0)},
+			},
+			"4.1":{
+				title(){return "A Tree Branch"},
+				desc(){return "You could even call this... The Modding Tree. Multiplies your point gain by x1.937"},
+				baseEffect(){return new Decimal(1.937)},
+				effect(){return this.baseEffect().pow(gameStuff.upgrades["4.1"])},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["points"]},
+				cost(){return [new Decimal(20.20).div(getDiscounts()[0])]},
+				costText(){return `Cost: ${this.cost()[0].toFixed(2)} points`},
+				color: "darkred",
+				shadowStyle: shadowOptimization[0],
+				unlocked(){return gameStuff.upgrades["4"].neq(0)},
+			},
+			"4.2":{
+				title(){return "Another One"},
+				desc(){return "Multiplies your point gain by x1.937"},
+				baseEffect(){return new Decimal(1.937)},
+				effect(){return this.baseEffect().pow(gameStuff.upgrades["4.2"])},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["req"]},
+				currencyRequired(){return ["points"]},
+				cost(){return [new Decimal(103).div(getDiscounts()[0])]},
+				costText(){return `Requirement: ${this.cost()[0].toFixed(2)} points`},
+				color: "darkred",
+				shadowStyle: shadowOptimization[0],
+				unlocked(){return gameStuff.upgrades["4"].gte(2)},
+			},
+			"5":{
+				title(){return "Upgrade-Upgrader"},
+				desc(){return `Divides your point gain by /${this.baseEffect()} for every unique upgrades bought`},
+				baseEffect(){return new Decimal(gameStuff.upgrades["8"].gte(1)?0.9:0.937)},
+				effect(){return this.baseEffect().pow(totalUpgrades())},
+				effectText(){return `Effect: /${this.effect().toFixed(2)} point gain`},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["points"]},
+				cost(){return [new Decimal(300).div(getDiscounts()[0])]},
+				costText(){return `Cost: ${this.cost()[0].toFixed(2)} points`},
+				color: "darkred",
+				shadowStyle: shadowOptimization[0],
+				unlocked(){return gameStuff.upgrades["4"].gte(3)},
+			},
+			"6":{
+				title(){return "Fresh Air"},
+				desc(){return "Lets take one step back and take a breath. Increases your base point gain by 1"},
+				baseEffect(){return new Decimal(1)},
+				effect(){return this.baseEffect().mul(gameStuff.upgrades["6"])},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["points"]},
+				cost(){return [new Decimal(520).div(getDiscounts()[0])]},
+				costText(){return `Cost: ${this.cost()[0].toFixed(2)} points`},
+				color: "darkred",
+				shadowStyle: shadowOptimization[0],
+				unlocked(){return gameStuff.upgrades["5"].neq(0)},
+			},
+			"7":{
+				title(){return "New Feature"},
+				desc(){return "Unlocks another world"},
+				baseEffect(){return new Decimal(1)},
+				effect(){return this.baseEffect().pow(totalUpgrades())},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["req"]},
+				currencyRequired(){return ["points"]},
+				cost(){return [new Decimal(937).div(getDiscounts()[0])]},
+				costText(){return `Requirement: ${this.cost()[0].toFixed(2)} points`},
+				color: "firebrick",
+				shadowStyle: shadowOptimization[1],
+				unlocked(){return gameStuff.upgrades["6"].neq(0)},
+			},
+			"8":{
+				title(){return "Rounding things up"},
+				desc(){return "Upgrade [5]'s effect is rounded to the nearest tenth number"},
+				baseEffect(){return 0},
+				effect(){return 0},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["points"]},
+				cost(){return [new Decimal(3750).div(getDiscounts()[0])]},
+				costText(){return `Cost: ${this.cost()[0].toFixed(2)} points`},
+				color: "darkred",
+				shadowStyle: shadowOptimization[0],
+				unlocked(){return gameStuff.upgrades["7"].neq(0)},
+			},
+			"9":{
+				title(){return "Getting Close..."},
+				desc(){return "You gain more points based on magnitude of points at rate of +x0.1"},
+				baseEffect(){return new Decimal(0.1)},
+				effect(){return Decimal.add(1, gameStuff.points.layer!=0?this.baseEffect().mul(gameStuff.points.mag+1):gameStuff.points.gte(1)?this.baseEffect().mul(gameStuff.points.log(10).add(1).floor()):0)},
+				effectText(){return `Effect: x${this.effect().toFixed(2)} point gain`},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["points"]},
+				cost(){return [new Decimal(10000).div(getDiscounts()[0])]},
+				costText(){return `Cost: ${this.cost()[0].toFixed(2)} points`},
+				color: "darkred",
+				shadowStyle: shadowOptimization[0],
+				unlocked(){return gameStuff.upgrades["8"].neq(0)},
+			},
+			"10":{
+				title(){return "Omega Power!"},
+				desc(){return "x5.2 point gain, x2.5 another point gain and unlocks prestiging for this world"},
+				baseEffect(){return 0},
+				effect(){return 0},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["points"]},
+				cost(){return [new Decimal(100000).div(getDiscounts()[0])]},
+				costText(){return `Cost: ${this.cost()[0].toFixed(2)} points`},
+				color: "darkred",
+				shadowStyle: shadowOptimization[0],
+				unlocked(){return gameStuff.upgrades["9"].neq(0)},
+			},
+			"A|1":{
+				title(){return '"Multiplayer" Thematics Ensues'},
+				desc(){return "Not quite the prestige, but we take those. Generates 1 another points/sec"},
+				baseEffect(){return new Decimal(1)},
+				effect(){return this.baseEffect().mul(gameStuff.upgrades["A|1"])},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["req"]},
+				currencyRequired(){return ["points"]},
+				cost(){return [new Decimal(0)]},
+				costText(){return false},
+				color: "firebrick",
+				shadowStyle: shadowOptimization[1],
+				unlocked(){return true},
+			},
+			"A|2:A":{
+				title(){return "Indirect Income"},
+				desc(){return "Generates 3 points/sec"},
+				baseEffect(){return new Decimal(3)},
+				effect(){return this.baseEffect().mul(gameStuff.upgrades["A|2:A"])},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["anotherPoints"]},
+				cost(){return [new Decimal(10)]},
+				costText(){return `Cost: ${this.cost()[0]} another points`},
+				color: "firebrick",
+				shadowStyle: shadowOptimization[1],
+				unlocked(){return gameStuff.upgrades["A|1"].neq(0)},
+			},
+			"A|2:B":{
+				title(){return "So much for unique path"},
+				desc(){return "Generates 1 another points/sec"},
+				baseEffect(){return new Decimal(1)},
+				effect(){return this.baseEffect().mul(gameStuff.upgrades["A|2:B"])},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["anotherPoints"]},
+				cost(){return [new Decimal(15)]},
+				costText(){return `Cost: ${this.cost()[0]} another points`},
+				color: "firebrick",
+				shadowStyle: shadowOptimization[1],
+				unlocked(){return gameStuff.upgrades["A|1"].neq(0)},
+			},
+			"A|3:A":{
+				title(){return "Another Assistance"},
+				desc(){return "Multiplies your point gain based on how much of another points you have"},
+				baseEffect(){return gameStuff.anotherPoints.add(1).log(10).add(1)},
+				effect(){return this.baseEffect().pow(gameStuff.upgrades["A|3:A"])},
+				effectText(){return `Effect: x${this.baseEffect().toFixed(2)} point gain`},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["anotherPoints"]},
+				cost(){return [new Decimal(60)]},
+				costText(){return `Cost: ${this.cost()[0]} another points`},
+				color: "firebrick",
+				shadowStyle: shadowOptimization[1],
+				unlocked(){return gameStuff.upgrades["A|2:A"].neq(0)},
+			},
+			"A|3:B":{
+				title(){return "Something's not right"},
+				desc(){return "Generates 2 another points/sec"},
+				baseEffect(){return new Decimal(2)},
+				effect(){return this.baseEffect().mul(gameStuff.upgrades["A|3:B"])},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["points"]},
+				cost(){return [new Decimal(1937)]},
+				costText(){return `Cost: ${this.cost()[0]} points`},
+				color: "firebrick",
+				shadowStyle: shadowOptimization[1],
+				unlocked(){return gameStuff.upgrades["A|2:B"].neq(0)},
+			},
+			"A|4":{
+				title(){return "Multi-tasking"},
+				desc(){return "Doubles your another point gain"+(gameStuff.upgrades["A|4"].neq(0)?"<br><br>pssst.... hey. yes, yes you. buying any of those three upgrades will increase their cost by x10, even if you've already purchased them":"")},
+				baseEffect(){return new Decimal(2)},
+				effect(){return this.baseEffect().pow(gameStuff.upgrades["A|4"])},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["anotherPoints"]},
+				cost(){return [new Decimal(100)]},
+				costText(){return `Cost: ${this.cost()[0]} another points`},
+				color: "firebrick",
+				shadowStyle: shadowOptimization[1],
+				unlocked(){return gameStuff.upgrades["A|3:A"].neq(0) || gameStuff.upgrades["A|3:B"].neq(0)},
+			},
+			"A|5:A":{
+				title(){return "Path Buyable"},
+				desc(){return `Multiplies your point gain by x${this.baseEffect()}`},
+				baseEffect(){return new Decimal(gameStuff.upgrades["A|6:A"].neq(0)?1.2:1.15)},
+				effect(){return this.baseEffect().pow(gameStuff.upgrades["A|5:A"])},
+				effectText(){return `Effect: x${this.effect().toFixed(2)} point gain`}, 
+				limit(){return new Decimal(Infinity)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["anotherPoints"]},
+				cost(){return [new Decimal(gameStuff.upgrades["A|5:B"].neq(0)&&gameStuff.upgrades["A|5:C"].neq(0)?2400000:gameStuff.upgrades["A|5:B"].neq(0)||gameStuff.upgrades["A|5:C"].neq(0)?24000:240).mul(Decimal.pow(1.5, gameStuff.upgrades["A|5:A"])).mul(gameStuff.upgrades["A|8:A"].neq(0)?0.48:1)]},
+				costText(){return `Cost: ${this.cost()[0].toFixed(2)} another points`},
+				color: "firebrick",
+				shadowStyle: shadowOptimization[1],
+				unlocked(){return gameStuff.upgrades["A|4"].neq(0)},
+			},
+			"A|5:B":{
+				title(){return `Path Bar`},
+				desc(){return `Automatically generates ${gameStuff.upgrades["A|6:B"].neq(0)?gameStuff["A|5:B"].level:1} A5:B's per second and increasing your point${gameStuff.upgrades["A|7:B"].neq(0)?" and another point":""} gain by +x${this.baseEffect()} per level`},
+				baseEffect(){return new Decimal(0.1)},
+				effect(){return this.baseEffect().mul(gameStuff["A|5:B"].level.sub(1)).add(1)},
+				xpRequirement(){return Decimal.mul(5, Decimal.pow(2, gameStuff["A|5:B"].level.sub(1)))},
+				effectText(){return `Current Level: ${gameStuff["A|5:B"].level} [x${this.effect().toFixed(2)}]<br>Required A5:B's: ${gameStuff["A|5:B"].xp.toFixed(2)}/${this.xpRequirement().toFixed(2)}`},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["anotherPoints"]},
+				cost(){return [new Decimal(gameStuff.upgrades["A|5:A"].neq(0)&&gameStuff.upgrades["A|5:C"].neq(0)?2400000:gameStuff.upgrades["A|5:A"].neq(0)||gameStuff.upgrades["A|5:C"].neq(0)?24000:240)]},
+				costText(){return `Cost: ${this.cost()[0]} another points`},
+				color: "firebrick",
+				shadowStyle: shadowOptimization[1],
+				unlocked(){return gameStuff.upgrades["A|4"].neq(0)},
+			},
+			"A|5:C":{
+				title(){return "Path Bag"},
+				desc(){return `Putting another points into bag increases point gain up to x${gameStuff.upgrades["A|7:C"].neq(0)?"10":"5"}, but loses ${gameStuff.upgrades["A|8:C"].neq(0)&&gameStuff["A|5:C"].gt(2250)?"667.5":gameStuff.upgrades["A|6:C"].neq(0)?"15":"25"}/sec`},
+				baseEffect(){return gameStuff["A|5:C"].div(250).add(1)},
+				effect(){return this.baseEffect().pow(gameStuff.upgrades["A|5:C"])},
+				effectText(){return `Capacity: [${gameStuff["A|5:C"].toFixed(2)}|${gameStuff.upgrades["A|7:C"].neq(0)?"2250":"1000"}] Effect: x${this.effect().toFixed(2)} point gain`},
+				limit(){return new Decimal(1)},
+				costType(){return ["req"]},
+				currencyRequired(){return ["anotherPoints"]},
+				cost(){return [new Decimal(gameStuff.upgrades["A|5:B"].neq(0)&&gameStuff.upgrades["A|5:A"].neq(0)?2400000:gameStuff.upgrades["A|5:B"].neq(0)||gameStuff.upgrades["A|5:A"].neq(0)?24000:240)]},
+				costText(){return `Cost: ${this.cost()[0]} another points`},
+				color: "firebrick",
+				shadowStyle: shadowOptimization[1],
+				unlocked(){return gameStuff.upgrades["A|4"].neq(0)},
+			},
+			"A|6:A":{
+				title(){return `Better Optimization`},
+				desc(){return `"Path Buyable" is a bit stronger now`},
+				baseEffect(){return 0},
+				effect(){return 0},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["anotherPoints"]},
+				cost(){return [new Decimal(gameStuff.upgrades["A|5:B"].neq(0)&&gameStuff.upgrades["A|5:C"].neq(0)?4008000:gameStuff.upgrades["A|5:B"].neq(0)||gameStuff.upgrades["A|5:C"].neq(0)?48000:480)]},
+				costText(){return `Cost: ${this.cost()[0]} another points`},
+				color: "firebrick",
+				shadowStyle: shadowOptimization[1],
+				unlocked(){return gameStuff.upgrades["A|5:A"].neq(0)},
+			},
+			"A|6:B":{
+				title(){return `Power Pole`},
+				desc(){return `"Path Bar" now generates A5:B/sec based on level`},
+				baseEffect(){return 0},
+				effect(){return 0},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["anotherPoints"]},
+				cost(){return [new Decimal(gameStuff.upgrades["A|5:C"].neq(0)&&gameStuff.upgrades["A|5:A"].neq(0)?3600000:gameStuff.upgrades["A|5:C"].neq(0)||gameStuff.upgrades["A|5:A"].neq(0)?36000:360)]},
+				costText(){return `Cost: ${this.cost()[0]} another points`},
+				color: "firebrick",
+				shadowStyle: shadowOptimization[1],
+				unlocked(){return gameStuff.upgrades["A|5:B"].neq(0)},
+			},
+			"A|6:C":{
+				title(){return `Update Patch`},
+				desc(){return `"Path Bag" loses less another points`},
+				baseEffect(){return 0},
+				effect(){return 0},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["anotherPoints"]},
+				cost(){return [new Decimal(gameStuff.upgrades["A|5:B"].neq(0)&&gameStuff.upgrades["A|5:A"].neq(0)?7500000:gameStuff.upgrades["A|5:B"].neq(0)||gameStuff.upgrades["A|5:A"].neq(0)?75000:750)]},
+				costText(){return `Cost: ${this.cost()[0]} another points`},
+				color: "firebrick",
+				shadowStyle: shadowOptimization[1],
+				unlocked(){return gameStuff.upgrades["A|5:C"].neq(0)},
+			},
+			"A|7:A":{
+				title(){return `Otherworldly Discount`},
+				desc(){return `"Path Buyable" affects point upgrades's price at reduced rate`},
+				baseEffect(){return upgrades["A|5:A"].effect().root(3)},
+				effect(){return this.baseEffect().pow(gameStuff.upgrades["A|7:A"])},
+				effectText(){return `Effect: /${this.baseEffect().toFixed(2)} point upgrades price`},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["anotherPoints"]},
+				cost(){return [new Decimal(gameStuff.upgrades["A|5:B"].neq(0)&&gameStuff.upgrades["A|5:C"].neq(0)?9600000:gameStuff.upgrades["A|5:B"].neq(0)||gameStuff.upgrades["A|5:C"].neq(0)?96000:960)]},
+				costText(){return `Cost: ${this.cost()[0]} another points`},
+				color: "firebrick",
+				shadowStyle: shadowOptimization[1],
+				unlocked(){return gameStuff.upgrades["A|6:A"].neq(0)},
+			},
+			"A|7:B":{
+				title(){return `Perpetual Motion`},
+				desc(){return `"Path Bar" affects another point gain as well`},
+				baseEffect(){return 0},
+				effect(){return 0},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["anotherPoints"]},
+				cost(){return [new Decimal(gameStuff.upgrades["A|5:C"].neq(0)&&gameStuff.upgrades["A|5:A"].neq(0)?4800000:gameStuff.upgrades["A|5:C"].neq(0)||gameStuff.upgrades["A|5:A"].neq(0)?48000:480)]},
+				costText(){return `Cost: ${this.cost()[0]} another points`},
+				color: "firebrick",
+				shadowStyle: shadowOptimization[1],
+				unlocked(){return gameStuff.upgrades["A|6:B"].neq(0)},
+			},
+			"A|7:C":{
+				title(){return `Money Bag`},
+				desc(){return `"Path Bag"'s capacity has increased to 2250 and maximum point gain effect has increased to x10`},
+				baseEffect(){return 0},
+				effect(){return 0},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["anotherPoints"]},
+				cost(){return [new Decimal(gameStuff.upgrades["A|5:B"].neq(0)&&gameStuff.upgrades["A|5:A"].neq(0)?15000000:gameStuff.upgrades["A|5:B"].neq(0)||gameStuff.upgrades["A|5:A"].neq(0)?150000:1500)]},
+				costText(){return `Cost: ${this.cost()[0]} another points`},
+				color: "firebrick",
+				shadowStyle: shadowOptimization[1],
+				unlocked(){return gameStuff.upgrades["A|6:C"].neq(0)},
+			},
+			"A|8:A":{
+				title(){return `Black Friday`},
+				desc(){return `"Path Buyable" is 52% cheaper`},
+				baseEffect(){return 0},
+				effect(){return 0},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["anotherPoints"]},
+				cost(){return [new Decimal(gameStuff.upgrades["A|5:B"].neq(0)&&gameStuff.upgrades["A|5:C"].neq(0)?38400000:gameStuff.upgrades["A|5:B"].neq(0)||gameStuff.upgrades["A|5:C"].neq(0)?384000:3840)]},
+				costText(){return `Cost: ${this.cost()[0]} another points`},
+				color: "firebrick",
+				shadowStyle: shadowOptimization[1],
+				unlocked(){return gameStuff.upgrades["A|7:A"].neq(0)},
+			},
+			"A|8:B":{
+				title(){return `Balance`},
+				desc(){return `"Path Bar" levels increase [PLACEHOLDER] gain by +x0.01 each`},
+				baseEffect(){return new Decimal(0.01)},
+				effect(){return this.baseEffect().mul(gameStuff["A|5:B"].level).add(1)},
+				effectText(){return `Effect: x${this.effect().toFixed(2)} [PLACEHOLDER] gain`},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["anotherPoints"]},
+				cost(){return [new Decimal(gameStuff.upgrades["A|5:C"].neq(0)&&gameStuff.upgrades["A|5:A"].neq(0)?64000000:gameStuff.upgrades["A|5:C"].neq(0)||gameStuff.upgrades["A|5:A"].neq(0)?640000:6400)]},
+				costText(){return `Cost: ${this.cost()[0]} another points`},
+				color: "firebrick",
+				shadowStyle: shadowOptimization[1],
+				unlocked(){return gameStuff.upgrades["A|7:B"].neq(0)},
+			},
+			"A|8:C":{
+				title(){return `Overload!`},
+				desc(){return `You can put thrice the amount of "Path Bag"'s capacity with horrendous decay above capacity limit`},
+				baseEffect(){return 0},
+				effect(){return 0},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["anotherPoints"]},
+				cost(){return [new Decimal(gameStuff.upgrades["A|5:B"].neq(0)&&gameStuff.upgrades["A|5:A"].neq(0)?60000000:gameStuff.upgrades["A|5:B"].neq(0)||gameStuff.upgrades["A|5:A"].neq(0)?600000:6000)]},
+				costText(){return `Cost: ${this.cost()[0]} another points`},
+				color: "firebrick",
+				shadowStyle: shadowOptimization[1],
+				unlocked(){return gameStuff.upgrades["A|7:C"].neq(0)},
+			},
+			"A|9":{
+				title(){return `???`},
+				desc(){return `Increases point and [PLACEHOLDER] gain by x1.37`},
+				baseEffect(){return 0},
+				effect(){return 0},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["anotherPoints"]},
+				cost(){return [new Decimal(10000)]},
+				costText(){return `Cost: ${this.cost()[0]} another points`},
+				color: "firebrick",
+				shadowStyle: shadowOptimization[1],
+				unlocked(){return gameStuff.upgrades["A|8:A"].neq(0) || gameStuff.upgrades["A|8:B"].neq(0) || gameStuff.upgrades["A|8:C"].neq(0)},
+			},
+			"A|10":{
+				title(){return `???`},
+				desc(){return `First chosen path is twice as powerful (you chose "${gameStuff["A|5"]}" upgrade, y'now.)`},
+				baseEffect(){return 0},
+				effect(){return 0},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["anotherPoints"]},
+				cost(){return [new Decimal(10000)]},
+				costText(){return `Cost: ${this.cost()[0]} another points`},
+				color: "firebrick",
+				shadowStyle: shadowOptimization[1],
+				unlocked(){return gameStuff.upgrades["A|9"].neq(0)},
+			},
+		}
+		
+		function buyIt(x){
+			let affordable = true
+			if(gameStuff.upgrades[x].gte(upgrades[x].limit()) && x!="A|5:C")
+				return 0
+			for(let i=0;i<upgrades[x].currencyRequired().length;i++){
+				if(gameStuff[upgrades[x].currencyRequired()[i]].lt(upgrades[x].cost()[i]))
+					affordable = false
+			}
+			if(!gameStuff["A|5"]){
+				switch(x){
+					case "A|5:A":
+						gameStuff["A|5"] = "Path Buyable"
+						break;
+					case "A|5:B":
+						gameStuff["A|5"] = "Path Bar"
+						break;
+					case "A|5:C":
+						gameStuff["A|5"] = "Path Bag"
+						break;
+				}
+			}
+			if(x=="A|5:C"){
+				let countIt = Decimal.min(gameStuff.anotherPoints, new Decimal(gameStuff.upgrades["A|8:C"].neq(0)?6750:gameStuff.upgrades["A|7:C"].neq(0)?2250:1000).sub(gameStuff["A|5:C"]))
+				gameStuff.anotherPoints = gameStuff.anotherPoints.sub(countIt)
+				gameStuff["A|5:C"] = gameStuff["A|5:C"].add(countIt)
+			}
+			if(affordable && !(x=="A|5:C" && gameStuff.upgrades[x].neq(0))){
+				for(let i=0;i<upgrades[x].currencyRequired().length;i++){
+					if(upgrades[x].costType()[i]=="cost") gameStuff[upgrades[x].currencyRequired()[i]]=gameStuff[upgrades[x].currencyRequired()[i]].sub(upgrades[x].cost()[i])
+				}
+				gameStuff.upgrades[x]=gameStuff.upgrades[x].add(1)
+			}
+			let offset = [pushToTheRight[1],thatNumber*3+(gameStuff.upgrades["7"].gte(1)?thatNumber*3:0)]
+			for(let i=0;i<upg.length;i++){
+				if(!selectElement(upg[i][0]))
+					continue
+				for(let v=0;v<upg[i][3].length;v++){
+					if(selectElement(upg[i][3][v])){
+						drawLine("line "+upg[i][0]+" connected with "+upg[i][3][v]+" but with different color",getCenterPosition(upg[i][0]).x,getCenterPosition(upg[i][0]).y,getCenterPosition(upg[i][3][v]).x,getCenterPosition(upg[i][3][v]).y,8,"black")
+						drawLine("line "+upg[i][0]+" connected with "+upg[i][3][v],getCenterPosition(upg[i][0]).x,getCenterPosition(upg[i][0]).y,getCenterPosition(upg[i][3][v]).x,getCenterPosition(upg[i][3][v]).y,4,upgrades[upg[i][0]].color)
+					}
+				}
+				centerElement(upg[i][0],upg[i][1]+offset[0],-window.innerHeight/2+thatNumber*4+upg[i][2]+thatNumber*2+offset[1])
+			}
+			andOneMoreForTheFans()
+		}
+		
+		function elProgresso(x){
+			if(x>=0)
+				Object.assign(gameStuff.upgrades, {"1":new Decimal(1),"2":new Decimal(1),"3":new Decimal(1),"4":new Decimal(3),"4.1":new Decimal(1),"4.2":new Decimal(1),"5":new Decimal(1),"6":new Decimal(1),"7":new Decimal(1)})
+			if(x>=1)
+				Object.assign(gameStuff.upgrades, {"A|1":new Decimal(1),"A|2:A":new Decimal(1),"A|3:A":new Decimal(1),"A|2:B":new Decimal(1),"A|3:B":new Decimal(1),"A|4":new Decimal(1),"8":new Decimal(1)})
+		}
+		
+		function selectElement(x){
+			return document.getElementById(x)
+		}
+		
+		function createElement(id){
+			element = document.createElement("div");
+			element.id = id
+			document.body.appendChild(element)
+		}
+		
+		function getCenterPosition(id){
+			return {x: document.getElementById(id).getBoundingClientRect().left+document.getElementById(id).getBoundingClientRect().width/2, y: document.getElementById(id).getBoundingClientRect().top+document.getElementById(id).getBoundingClientRect().height/2}
+		}
+		
+		function centerElementHorizontally(x, offset){
+			selectElement(x).style["margin-left"] = (window.innerWidth-document.getElementById(x).getBoundingClientRect().width)/2+offset+"px"
+		}
+		
+		function centerElementVertically(x, offset){
+			selectElement(x).style["margin-top"] = (window.innerHeight-document.getElementById(x).getBoundingClientRect().height)/2+offset+"px"
+		}
+		function centerElement(x,xOffset,yOffset){
+			centerElementHorizontally(x, xOffset)
+			centerElementVertically(x, yOffset)
+		}
+		
+		function centerElementRelativeToAnotherElement(x, x2, offset, offset2){ 
+			selectElement(x).style["margin-left"] = Number(selectElement(x2).style["margin-left"].replace("px",""))+(document.getElementById(x2).getBoundingClientRect().width-document.getElementById(x).getBoundingClientRect().width)/2+offset+"px"
+			selectElement(x).style["margin-top"] = Number(selectElement(x2).style["margin-top"].replace("px",""))+(document.getElementById(x2).getBoundingClientRect().height-document.getElementById(x).getBoundingClientRect().height)/2+offset2+"px"
+		}
+		
+		function drawLine(id,x,y,X,Y,thickness,color){ 
+			if(!selectElement(id)) selectElement("svg").innerHTML += `<line id="${id}"/>`
+			selectElement(id).x1.baseVal.value = x
+			selectElement(id).y1.baseVal.value = y
+			selectElement(id).x2.baseVal.value = X
+			selectElement(id).y2.baseVal.value = Y
+			selectElement(id).style.stroke = color
+			selectElement(id).style["stroke-width"] = thickness
+			selectElement(id).style["stroke-linecap"] = "round"
+		}
+		
+		function insetBorder(top,bottom,left,right,blur,color){
+			let text = ``
+			for(let i=1;i<color.length+1;i++){
+				text+= (top!=0?`inset 0px ${top*i}px ${blur}px ${color[i-1]},`:``)+(bottom!=0?`inset 0px ${-bottom*i}px ${blur}px ${color[i-1]},`:``)+(left!=0?`inset ${left*i}px 0px ${blur}px ${color[i-1]},`:``)+(right!=0?`inset ${-right*i}px 0px ${blur}px ${color[i-1]},`:``)
+			}
+			return text[text.length-1]==","?text.slice(0,-1):text
+		}
+		
+		for(let i=0;i<Object.keys(upgrades).length;i++){
+			if(!gameStuff.upgrades[Object.keys(upgrades)[i]])
+				Object.assign(gameStuff.upgrades, {[Object.keys(upgrades)[i]]: new Decimal(0)})
+		}
+		
+		function andOneMoreForTheFans(firstTime = true){
+			shouldIAddElements()
+			if(firstTime)
+				pushToTheRight = [0,0]
+			let offset = [pushToTheRight[1],thatNumber*3+(gameStuff.upgrades["7"].gte(1)?thatNumber*3:0)]
+			for(let i=0;i<upg.length;i++){
+				if(selectElement(upg[i][0])){
+					centerElement(upg[i][0],upg[i][1]+offset[0],-window.innerHeight/2+thatNumber*4+upg[i][2]+thatNumber*2+offset[1])
+					pushToTheRight[0] = Math.min(pushToTheRight[0], selectElement("shitass"+upg[i][0]).getBoundingClientRect().left-thatNumber/8)
+				}
+			}
+			for(let i=0;i<upg.length;i++){
+				if(selectElement(upg[i][0])){
+					for(let v=0;v<upg[i][3].length;v++){
+						drawLine("line "+upg[i][0]+" connected with "+upg[i][3][v]+" but with different color",getCenterPosition(upg[i][0]).x,getCenterPosition(upg[i][0]).y,getCenterPosition(upg[i][3][v]).x,getCenterPosition(upg[i][3][v]).y,8,"black")
+						drawLine("line "+upg[i][0]+" connected with "+upg[i][3][v],getCenterPosition(upg[i][0]).x,getCenterPosition(upg[i][0]).y,getCenterPosition(upg[i][3][v]).x,getCenterPosition(upg[i][3][v]).y,4,upgrades[upg[i][0]].color)
+					}
+				}
+			}
+			if(pushToTheRight[0]+pushToTheRight[1]!=0){
+				pushToTheRight[1] = -pushToTheRight[0]
+				andOneMoreForTheFans(false)
+			}
+		}
+		
+		function shouldIAddElements(){
+			let offset = [pushToTheRight[1],thatNumber*3+(gameStuff.upgrades["7"].gte(1)?thatNumber*3:0)]
+			for(let i=0;i<upg.length;i++){
+				if(gameStuff.tab==0 && !Number(upg[i][0])){
+					if(selectElement(upg[i][0])){
+						selectElement(upg[i][0]).remove()
+						for(let v=0;v<upg[i][3].length;v++){
+							selectElement("line "+upg[i][0]+" connected with "+upg[i][3][v]).remove()
+							selectElement("line "+upg[i][0]+" connected with "+upg[i][3][v]+" but with different color").remove()
+						}
+					}
+					continue
+				}
+				if(!upg[i][0].includes(tabNames[gameStuff.tab])){
+					if(selectElement(upg[i][0])){
+						selectElement(upg[i][0]).remove()
+						for(let v=0;v<upg[i][3].length;v++){
+							selectElement("line "+upg[i][0]+" connected with "+upg[i][3][v]).remove()
+							selectElement("line "+upg[i][0]+" connected with "+upg[i][3][v]+" but with different color").remove()
+						}
+					}
+					continue
+				}
+				if(!selectElement(upg[i][0]) && upgrades[upg[i][0]].unlocked()){
+					createElement(upg[i][0])
+					selectElement(upg[i][0]).style.height = `${thatNumber*6}px`
+					selectElement(upg[i][0]).style.width = `${thatNumber*9}px`
+					selectElement(upg[i][0]).style["background-color"] = "black"
+					selectElement(upg[i][0]).style["z-index"] = "-1"
+					selectElement(upg[i][0]).style["box-shadow"] = insetBorder(thatNumber/8,thatNumber/8,thatNumber/8,thatNumber/8,0,["black",upgrades[upg[i][0]].color,"black",upgrades[upg[i][0]].color])+`, 0px ${thatNumber/4}px 0px black, 0px ${thatNumber/4}px ${thatNumber/4}px black`
+					selectElement(upg[i][0]).style["border-radius"] = `${thatNumber/4}px`
+					selectElement(upg[i][0]).addEventListener("click", function() {buyIt(upg[i][0])})
+					centerElement(upg[i][0],upg[i][1]+offset[0],-window.innerHeight/2+thatNumber*4+upg[i][2]+thatNumber*2+offset[1])
+					selectElement(upg[i][0]).innerHTML = upgradeText(upg[i][0])
+					pushToTheRight[0] = Math.min(pushToTheRight[0], selectElement("shitass"+upg[i][0]).getBoundingClientRect().left-thatNumber/8)
+				}
+				if(!selectElement(upg[i][0]))
+					continue
+				selectElement(upg[i][0]).innerHTML = upgradeText(upg[i][0])
+				for(let v=0;v<upg[i][3].length;v++){
+					if(selectElement(upg[i][3][v]) && !selectElement("line "+upg[i][0]+" connected with "+upg[i][3][v]+" but with different color")){
+						drawLine("line "+upg[i][0]+" connected with "+upg[i][3][v]+" but with different color",getCenterPosition(upg[i][0]).x,getCenterPosition(upg[i][0]).y,getCenterPosition(upg[i][3][v]).x,getCenterPosition(upg[i][3][v]).y,8,"black")
+						drawLine("line "+upg[i][0]+" connected with "+upg[i][3][v],getCenterPosition(upg[i][0]).x,getCenterPosition(upg[i][0]).y,getCenterPosition(upg[i][3][v]).x,getCenterPosition(upg[i][3][v]).y,4,upgrades[upg[i][0]].color)
+					}
+				}
+			}
+			if(gameStuff.upgrades["7"].neq(0) || gameStuff.upgrades["10"].neq(0)){
+				if(!selectElement("tab0")){
+					createElement("tab0")
+					selectElement("tab0").style.height =  `${thatNumber*2}px`
+					selectElement("tab0").style.width =  `${thatNumber*6}px`
+					selectElement("tab0").style["background-color"] =  `darkred`
+					selectElement("tab0").style["border-radius"] =  `${thatNumber}px`
+					selectElement("tab0").style["border"] = `4px black solid`
+					selectElement("tab0").style["box-shadow"] = `inset 0px 0px ${thatNumber/2}px black`
+					selectElement("tab0").innerHTML = `<span style="pointer-events: none; text-shadow: ${addSolidTextShadow(thatNumber/16,"black")}; color:red;position: absolute; width: ${thatNumber*14}; transform: translate(-50%, ${thatNumber}%); font-size:${thatNumber}px;">POINTS</span>`
+					selectElement("tab0").addEventListener("click", function() {gameStuff.tab = 0; andOneMoreForTheFans(); selectElement("background").style.filter = ""})
+					centerElement("tab0", -thatNumber*6, -window.innerHeight/2+thatNumber*6)
+				}
+				if(!selectElement("tab1")){
+					createElement("tab1")
+					selectElement("tab1").style.height =  `${thatNumber*2}px`
+					selectElement("tab1").style.width =  `${thatNumber*14}px`
+					selectElement("tab1").style["background-color"] =  `firebrick`
+					selectElement("tab1").style["border-radius"] =  `${thatNumber}px`
+					selectElement("tab1").style["border"] = `4px black solid`
+					selectElement("tab1").style["box-shadow"] = `inset 0px 0px ${thatNumber/2}px black`
+					selectElement("tab1").innerHTML = `<span style="pointer-events: none;  text-shadow: ${addSolidTextShadow(thatNumber/16,"black")}; color:crimson; position: absolute; width: ${thatNumber*14}; transform: translate(-50%, ${thatNumber}%); font-size:${thatNumber}px;">ANOTHER POINTS</span>`
+					selectElement("tab1").addEventListener("click", function() {gameStuff.tab = 1; andOneMoreForTheFans(); selectElement("background").style.filter = "hue-rotate(93.7deg) brightness(75%) contrast(200%)"})
+					centerElement("tab1", thatNumber*6, -window.innerHeight/2+thatNumber*6)
+				}
+			}
+			else{
+				if(selectElement("tab0"))
+					selectElement("tab0").remove()
+				if(selectElement("tab1"))
+					selectElement("tab1").remove()
+			}
+			if(gameStuff.upgrades["10"].neq(0)){
+				if(!selectElement("prestige0")){
+					createElement("prestige0")
+					selectElement("prestige0").style.height =  `${thatNumber/2}px`
+					selectElement("prestige0").style.width =  `${thatNumber*4}px`
+					selectElement("prestige0").style["background-color"] =  `darkred`
+					selectElement("prestige0").style["border-radius"] =  `0 0 ${thatNumber/4}px ${thatNumber/4}px`
+					selectElement("prestige0").style["border"] = `4px black solid`
+					selectElement("prestige0").style["box-shadow"] = `inset 0px 0px ${thatNumber/2}px black`
+					selectElement("prestige0").style["z-index"] = -1
+					selectElement("prestige0").innerHTML = `<span style="pointer-events: none; text-shadow: ${addSolidTextShadow(thatNumber/16,"black")}; color:red;position: absolute; width: ${thatNumber*14}; transform: translate(-50%, -${thatNumber/2}%); font-size:${thatNumber/2}px;">DEMO END</span>`
+				}
+				centerElement("prestige0", -thatNumber*6, -window.innerHeight/2+thatNumber*7.375)
+			}
+			else{
+				if(selectElement("prestige0"))
+					selectElement("prestige0").remove()
+			}
+		}
+
+		window.addEventListener("resize", function(){
+			let offset = [pushToTheRight[1],thatNumber*3+(gameStuff.upgrades["7"].gte(1)?thatNumber*3:0)]
+			selectElement("svg").viewBox.baseVal.height = window.innerHeight
+			selectElement("svg").viewBox.baseVal.width = window.innerWidth
+			selectElement("background").style.height = window.innerHeight+445.4
+			selectElement("background").style.width = window.innerWidth+445.4
+			selectElement("holdBackground").style.top = window.scrollY
+			selectElement("holdBackground").style.height = window.innerHeight
+			selectElement("holdBackground").style.width = window.innerWidth
+			selectElement("svg").style.height = window.innerHeight
+			selectElement("svg").style.width = window.innerWidth
+			selectElement("svg").style.left = window.scrollX
+			selectElement("svg").style.top = window.scrollY
+			selectElement("svg").viewBox.baseVal.x = 0
+			selectElement("svg").viewBox.baseVal.y = 0
+			selectElement("svg").viewBox.baseVal.height = window.innerHeight
+			selectElement("svg").viewBox.baseVal.width = window.innerWidth
+			for(let i=0;i<upg.length;i++){
+				if(!selectElement(upg[i][0]))
+					continue
+				centerElement(upg[i][0],upg[i][1]+offset[0],-window.innerHeight/2+thatNumber*4+upg[i][2]+thatNumber*2+offset[1])
+				for(let v=0;v<upg[i][3].length;v++){
+					if(selectElement(upg[i][3][v])){
+						drawLine("line "+upg[i][0]+" connected with "+upg[i][3][v]+" but with different color",getCenterPosition(upg[i][0]).x,getCenterPosition(upg[i][0]).y,getCenterPosition(upg[i][3][v]).x,getCenterPosition(upg[i][3][v]).y,8,"black")
+						drawLine("line "+upg[i][0]+" connected with "+upg[i][3][v],getCenterPosition(upg[i][0]).x,getCenterPosition(upg[i][0]).y,getCenterPosition(upg[i][3][v]).x,getCenterPosition(upg[i][3][v]).y,4,upgrades[upg[i][0]].color)
+					}
+				}
+			}
+			centerElement("points",scrollX,-window.innerHeight/2+thatNumber+40)
+			centerElement("tab0", -thatNumber*6+scrollX, -window.innerHeight/2+thatNumber*6)
+			centerElement("tab1", thatNumber*6+scrollX, -window.innerHeight/2+thatNumber*6)
+			andOneMoreForTheFans()
+		})
+
+		window.addEventListener("scroll", function(){
+			let offset = [pushToTheRight[1],thatNumber*3+(gameStuff.upgrades["7"].gte(1)?thatNumber*3:0)]
+			selectElement("holdBackground").style.top = window.scrollY
+			selectElement("holdBackground").style.left = window.scrollX
+			selectElement("saveFile1").style.top = Math.max(window.scrollY, thatNumber*3)+thatNumber
+			selectElement("saveFile2").style.top = Math.max(window.scrollY, thatNumber*3)+thatNumber*2.5-4
+			selectElement("saveFile3").style.top = Math.max(window.scrollY, thatNumber*3)+thatNumber*4-8
+			selectElement("export").style.top = Math.max(window.scrollY, thatNumber*3)+thatNumber*1
+			selectElement("import").style.top = Math.max(window.scrollY, thatNumber*3)+thatNumber*4-8
+			selectElement("hardReset").style.top = Math.max(window.scrollY, thatNumber*3)+thatNumber*5.5-12
+			selectElement("toggleOptions").style.top = Math.max(window.scrollY, thatNumber*3)+thatNumber*(selectElement('toggleOptions').style.transform==""?1:7)-(selectElement('toggleOptions').style.transform==""?0:16)
+			selectElement("saveText").style.top = Math.max(window.scrollY, thatNumber*3)+thatNumber*0.25
+			
+			selectElement("saveFile1").style.left = thatNumber+window.scrollX
+			selectElement("saveFile2").style.left = thatNumber+window.scrollX
+			selectElement("saveFile3").style.left = thatNumber+window.scrollX
+			selectElement("export").style.left = thatNumber*6-4+(window.scrollX)
+			selectElement("import").style.left = thatNumber*6-4+(window.scrollX)
+			selectElement("hardReset").style.left = thatNumber+window.scrollX
+			selectElement("toggleOptions").style.left = thatNumber+window.scrollX
+			selectElement("saveText").style.left = thatNumber+window.scrollX
+			
+			selectElement("svg").style.height = window.innerHeight
+			selectElement("svg").style.width = window.innerWidth
+			selectElement("svg").style.left = window.scrollX
+			selectElement("svg").style.top = window.scrollY
+			selectElement("svg").viewBox.baseVal.x = 0
+			selectElement("svg").viewBox.baseVal.y = 0
+			selectElement("svg").viewBox.baseVal.height = window.innerHeight
+			selectElement("svg").viewBox.baseVal.width = window.innerWidth
+			for(let i=0;i<upg.length;i++){
+				if(!selectElement(upg[i][0]))
+					continue
+				centerElement(upg[i][0],upg[i][1]+offset[0],-window.innerHeight/2+thatNumber*4+upg[i][2]+thatNumber*2+offset[1])
+				for(let v=0;v<upg[i][3].length;v++){
+					if(selectElement(upg[i][3][v])){
+						drawLine("line "+upg[i][0]+" connected with "+upg[i][3][v]+" but with different color",getCenterPosition(upg[i][0]).x,getCenterPosition(upg[i][0]).y,getCenterPosition(upg[i][3][v]).x,getCenterPosition(upg[i][3][v]).y,8,"black")
+						drawLine("line "+upg[i][0]+" connected with "+upg[i][3][v],getCenterPosition(upg[i][0]).x,getCenterPosition(upg[i][0]).y,getCenterPosition(upg[i][3][v]).x,getCenterPosition(upg[i][3][v]).y,4,upgrades[upg[i][0]].color)
+					}
+				}
+			}
+			centerElement("points",scrollX,-window.innerHeight/2+thatNumber+40)
+			centerElement("tab0", -thatNumber*6+scrollX, -window.innerHeight/2+thatNumber*6)
+			centerElement("tab1", thatNumber*6+scrollX, -window.innerHeight/2+thatNumber*6)
+			andOneMoreForTheFans()
+		})
+		
+		function getPointGens(){
+			let addPoint = upgrades["1"].effect()
+			addPoint = addPoint.add(upgrades["3"].effect())
+			addPoint = addPoint.add(upgrades["2"].effect())
+			addPoint = addPoint.add(upgrades["3"].effect())
+			addPoint = addPoint.add(upgrades["6"].effect())
+			addPoint = addPoint.add(upgrades["A|2:A"].effect())
+			
+			let multPoint = upgrades["4"].effect().pow(-1)
+			multPoint = multPoint.mul(upgrades["4.1"].effect())
+			multPoint = multPoint.mul(upgrades["4.2"].effect())
+			multPoint = multPoint.mul(gameStuff.upgrades["5"].neq(0)?upgrades["5"].effect().pow(-1):1)
+			multPoint = multPoint.mul(gameStuff.upgrades["9"].neq(0)?upgrades["9"].effect():1)
+			multPoint = multPoint.mul(upgrades["A|3:A"].effect())
+			multPoint = multPoint.mul(upgrades["A|5:A"].effect())
+			multPoint = multPoint.mul(upgrades["A|5:B"].effect())
+			multPoint = multPoint.mul(upgrades["A|5:C"].effect())
+			multPoint = multPoint.mul(gameStuff.upgrades["10"].neq(0)?5.2:1)
+			
+			let addAnother = upgrades["A|1"].effect()
+			addAnother = addAnother.add(upgrades["A|2:B"].effect())
+			addAnother = addAnother.add(upgrades["A|3:B"].effect())
+			
+			let multAnother = upgrades["A|4"].effect()
+			multAnother = multAnother.mul(gameStuff.upgrades["A|7:B"].neq(0)?upgrades["A|5:B"].effect():1)
+			multAnother = multAnother.mul(gameStuff.upgrades["10"].neq(0)?2.5:1)
+			
+			addPoint =  selectElement('pause').innerHTML=='PAUSE'?addPoint:new Decimal(0)
+			addAnother = selectElement('pause').innerHTML=='PAUSE'?addAnother:new Decimal(0)
+			
+			return [addPoint.mul(multPoint), addAnother.mul(multAnother)]
+		}
+		
+		function getDiscounts(){
+			let pointDiscount = upgrades["A|7:A"].effect()
+			
+			return [pointDiscount]
+		}
+		
+		
+		function runThisShit(){
+			time[1] = new Decimal(Date.now())
+			time[2] = time[1].sub(time[0]).div(1000).add(gameStuff.offlineTime.div(10))
+			time[0] = new Decimal(Date.now())
+			if(gameStuff.offlineTime.gte(0.1)) gameStuff.offlineTime = gameStuff.offlineTime.lt(0.1)?new Decimal(0):gameStuff.offlineTime.mul(0.9)
+			newsIncremental -= thatNumber*10*time[2];
+			if(newsIncremental<-window.innerWidth-selectElement("news").getBoundingClientRect().width/2){
+				selectElement("news").innerHTML = news[Math.floor(Math.random()*news.length)]
+				newsIncremental = window.innerWidth+selectElement("news").getBoundingClientRect().width/2
+			}
+			shouldIAddElements()
+			if(youShouldSwitchTabsNOW && gameStuff.upgrades["7"].neq(0)){
+				selectElement("tab"+gameStuff.tab).click()
+				youShouldSwitchTabsNOW = false
+			}
+			gameStuff.backgroundValue = gameStuff.backgroundValue.add(time[2].mul(69)).mod(69)
+			gameStuff.points = gameStuff.points.add(getPointGens()[0].mul(time[2]))
+			gameStuff.anotherPoints = gameStuff.anotherPoints.add(getPointGens()[1].mul(time[2]))
+			gameStuff["A|5:B"].xp = selectElement('pause').innerHTML=='PAUSE'?gameStuff.upgrades["A|5:B"].neq(0)?gameStuff["A|5:B"].xp.add(new Decimal(1).mul(gameStuff.upgrades["A|6:B"].neq(0)?gameStuff["A|5:B"].level:1).mul(time[2])):gameStuff["A|5:B"].xp:gameStuff["A|5:B"].xp
+			if(gameStuff["A|5:B"].xp.gte(upgrades["A|5:B"].xpRequirement())){
+				gameStuff["A|5:B"].xp = gameStuff["A|5:B"].xp.sub(upgrades["A|5:B"].xpRequirement())
+				gameStuff["A|5:B"].level = gameStuff["A|5:B"].level.add(1)
+			}
+			gameStuff["A|5:C"] = gameStuff["A|5:C"].sub(Decimal.mul(gameStuff.upgrades["A|6:C"].neq(0)?15:25, time[2]).mul(gameStuff.upgrades["A|8:C"].neq(0)&&gameStuff["A|5:C"].gt(2250)?667.5/15:1)).max(0)
+			gameStuff.whatTimeIsIt = Date.now()
+			centerElement("points",scrollX,-window.innerHeight/2+thatNumber+40)
+			selectElement("points").innerHTML=`<br><br><br><br><h1>You have ${[gameStuff.points,gameStuff.anotherPoints][gameStuff.tab].toFixed(2)} ${["points","another points"][gameStuff.tab]}<br>(${getPointGens()[gameStuff.tab].toFixed(2)}/sec)${gameStuff.offlineTime.gte(0.1)?" "+gameStuff.offlineTime.round()+" offline seconds left":""}</h1>`
+			selectElement("points").style.width = window.innerWidth-20+"px"
+			selectElement("newsBlank").style.height = thatNumber*2+"px"
+			selectElement("newsBlank").style.width = window.innerWidth+"px"
+			centerElement("newsBlank",scrollX,-window.innerHeight/2+thatNumber)
+			selectElement("newsBlank").style["font-size"] = thatNumber+"px"
+			selectElement("newsBlank").style["background-color"] = "white"
+			selectElement("newsBlank").style["background-color"] = "white"
+			selectElement("newsBlank").style["border-top"] = "4px black solid"
+			selectElement("newsBlank").style["border-bottom"] = "4px black solid"
+			selectElement("newsBlank").style["box-shadow"] = `0px 0px 52px black, inset 0px ${thatNumber/2}px ${thatNumber/2}px -${thatNumber/2}px black, inset 0px -${thatNumber/2}px ${thatNumber/2}px -${thatNumber/2}px black`
+			centerElement("news",newsIncremental,-window.innerHeight/2+thatNumber)
+			if(gameStuff.currentSaveFile) localStorage.setItem("xxxolegxxx.github.io/tree-roblox-idle-game savefile"+gameStuff.currentSaveFile,JSON.stringify(gameStuff))
+			if(selectElement("A|5:B"))
+				selectElement("A|5:B").style["background-image"] = `linear-gradient(to bottom, black ${upgrades["A|5:B"].xpRequirement().sub(gameStuff["A|5:B"].xp).div(upgrades["A|5:B"].xpRequirement()).mul(100).sub(10)}%, rgb(78,0,0) ${upgrades["A|5:B"].xpRequirement().sub(gameStuff["A|5:B"].xp).div(upgrades["A|5:B"].xpRequirement()).mul(100).add(10)}%)`
+		}
+			centerElement("points",scrollX,-window.innerHeight/2+thatNumber+40)
+			selectElement("background").style.height = window.innerHeight+445.4
+			selectElement("background").style.width = window.innerWidth+445.4
+			selectElement("holdBackground").style.height = window.innerHeight
+			selectElement("holdBackground").style.width = window.innerWidth
+			selectElement("saveFile1").style.height = thatNumber*1.5
+			selectElement("saveFile1").style.width = thatNumber*5
+			selectElement("saveFile1").style.top = thatNumber*4
+			selectElement("saveFile1").style.left = thatNumber
+			selectElement("saveFile2").style.height = thatNumber*1.5
+			selectElement("saveFile2").style.width = thatNumber*5
+			selectElement("saveFile2").style.top = thatNumber*5.5-4
+			selectElement("saveFile2").style.left = thatNumber
+			selectElement("saveFile3").style.height = thatNumber*1.5
+			selectElement("saveFile3").style.width = thatNumber*5
+			selectElement("saveFile3").style.top = thatNumber*7-8
+			selectElement("saveFile3").style.left = thatNumber
+			
+			selectElement("export").style.height = thatNumber*3-4
+			selectElement("export").style.width = thatNumber*3
+			selectElement("export").style.top = thatNumber*4
+			selectElement("export").style.left = thatNumber*6-4
+			selectElement("import").style.height = thatNumber*3-4
+			selectElement("import").style.width = thatNumber*3
+			selectElement("import").style.top = thatNumber*7-8
+			selectElement("import").style.left = thatNumber*6-4
+			selectElement("hardReset").style.height = thatNumber*1.5
+			selectElement("hardReset").style.width = thatNumber*5
+			selectElement("hardReset").style.top = thatNumber*8.5-12
+			selectElement("hardReset").style.left = thatNumber
+			selectElement("toggleOptions").style.height = thatNumber*1.5
+			selectElement("toggleOptions").style.width = thatNumber*8-4
+			selectElement("toggleOptions").style.top = thatNumber*10-16
+			selectElement("toggleOptions").style.left = thatNumber
+			selectElement("saveText").style.top = thatNumber*3.25
+			selectElement("saveText").style.left = thatNumber
+			selectElement("svg").style.height = window.innerHeight
+			selectElement("svg").style.width = window.innerWidth
+			selectElement("svg").style.left = window.scrollX
+			selectElement("svg").style.top = window.scrollY
+			selectElement("svg").viewBox.baseVal.x = 0
+			selectElement("svg").viewBox.baseVal.y = 0
+			selectElement("svg").viewBox.baseVal.height = window.innerHeight
+			selectElement("svg").viewBox.baseVal.width = window.innerWidth
+		let bozo = setInterval(runThisShit, 1000/60)
+	</script>
+</body>
