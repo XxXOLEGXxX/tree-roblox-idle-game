@@ -39,9 +39,9 @@
 		<div id="background" style="top: 0; left: 0; transform: translate(-207px, -207px); background-image:url('background.png'); animation-composition: add; animation: bounceAndChange 2.811s linear infinite, ass 2.811s ease infinite;"></div>
 	</div>
 	<svg id="svg" style="top: 0; left: 0; pointer-events: none; z-index: -2;" viewBox="0 0 1000 1000"></svg>
-	<button id="saveFile1" onclick="save(1); selectElement('saveText').innerHTML = 'Current Save File: #1';" style="font-size: 20px; background-color: gray; border: 4px black solid;">Save File #1</button>
-	<button id="saveFile2" onclick="save(2); selectElement('saveText').innerHTML = 'Current Save File: #2';" style="font-size: 20px; background-color: gray; border: 4px black solid;">Save File #2</button>
-	<button id="saveFile3" onclick="save(3); selectElement('saveText').innerHTML = 'Current Save File: #3';" style="font-size: 20px; background-color: gray; border: 4px black solid;">Save File #3</button>
+	<button id="saveFile1" onclick="save(1); selectElement('saveText').innerHTML = 'Current Save File: #1';" style="z-index:1; font-size: 20px; background-color: gray; border: 4px black solid;">Save File #1</button>
+	<button id="saveFile2" onclick="save(2); selectElement('saveText').innerHTML = 'Current Save File: #2';" style="z-index:1; font-size: 20px; background-color: gray; border: 4px black solid;">Save File #2</button>
+	<button id="saveFile3" onclick="save(3); selectElement('saveText').innerHTML = 'Current Save File: #3';" style="z-index:1; font-size: 20px; background-color: gray; border: 4px black solid;">Save File #3</button>
 	<button id="export" onclick="exportus()" style="font-size: 20px; background-color: gray; border: 4px black solid;">Export</button>
 	<button id="import" onclick="importus()" style="font-size: 20px; background-color: gray; border: 4px black solid;">Import</button>
 	<button id="hardReset" onclick="hardReset();" style="font-size: 20px; background-color: gray; border: 4px black solid;">HARD RESET</button>
@@ -964,7 +964,9 @@
 				}
 			}
 			centerElement("points",scrollX,-window.innerHeight/2+thatNumber+40)
+			if(selectElement("tab0"))
 			centerElement("tab0", -thatNumber*6+scrollX, -window.innerHeight/2+thatNumber*6)
+			if(selectElement("tab1"))
 			centerElement("tab1", thatNumber*6+scrollX, -window.innerHeight/2+thatNumber*6)
 			andOneMoreForTheFans()
 		})
@@ -1011,7 +1013,9 @@
 				}
 			}
 			centerElement("points",scrollX,-window.innerHeight/2+thatNumber+40)
+			if(selectElement("tab0"))
 			centerElement("tab0", -thatNumber*6+scrollX, -window.innerHeight/2+thatNumber*6)
+			if(selectElement("tab1"))
 			centerElement("tab1", thatNumber*6+scrollX, -window.innerHeight/2+thatNumber*6)
 			andOneMoreForTheFans()
 		})
