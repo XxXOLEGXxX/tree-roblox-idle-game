@@ -35,21 +35,21 @@
 	<script src="break_eternity.js"></script>
 </head>
 <body>
-	<div id="holdBackground" style="overflow: hidden; z-index: -3; top: 0; left: 0;">
-		<div id="background" style="top: 0; left: 0; background-image:url('background.png'); animation-composition: add; animation: bounceAndChange 2.811s linear infinite, ass 2.811s ease infinite;"></div>
+	<div id="holdBackground" style="position: fixed; height: 100dvh; width: 100dvw; overflow: hidden; z-index: -3; top: 0; left: 0;">
+		<div id="background" style="top: 0; left: 0; height: 100dvh; width: 100dvw; background-image:url('background.png'); animation-composition: add; animation: bounceAndChange 2.811s linear infinite, ass 2.811s ease infinite;"></div>
 	</div>
-	<svg id="svg" style="top: 0; left: 0; pointer-events: none; z-index: -2;" viewBox="0 0 1000 1000"></svg>
-	<button id="saveFile1" onclick="save(1); selectElement('saveText').innerHTML = 'Current Save File: #1';" style="z-index:1; font-size: 20px; background-color: gray; border: 4px black solid;">Save File #1</button>
-	<button id="saveFile2" onclick="save(2); selectElement('saveText').innerHTML = 'Current Save File: #2';" style="z-index:1; font-size: 20px; background-color: gray; border: 4px black solid;">Save File #2</button>
-	<button id="saveFile3" onclick="save(3); selectElement('saveText').innerHTML = 'Current Save File: #3';" style="z-index:1; font-size: 20px; background-color: gray; border: 4px black solid;">Save File #3</button>
-	<button id="export" onclick="exportus()" style="font-size: 20px; background-color: gray; border: 4px black solid;">Export</button>
-	<button id="import" onclick="importus()" style="font-size: 20px; background-color: gray; border: 4px black solid;">Import</button>
-	<button id="hardReset" onclick="hardReset();" style="font-size: 20px; background-color: gray; border: 4px black solid;">HARD RESET</button>
-	<button id="toggleOptions" onclick="toggleOptions()" style="transform:rotate(180deg);font-size: 20px; background-color: gray; border: 4px black solid;">v</button>
-	<button id="pause" onclick="selectElement('pause').innerHTML = selectElement('pause').innerHTML=='PAUSE'?'START':'PAUSE';" style="top:800;left:50;position:fixed;height:100px;width:100px;">PAUSE</button>
-	<div id="saveText" style="top: 0; left: 0;">Pick a Save File first</div>
+	<svg id="svg" style="top: 0; left: 0; height: 100dvh; width: 100dvw; position: fixed; pointer-events: none; z-index: -2;" viewBox="0 0 100% 100%"></svg>
+	<button id="saveFile1" onclick="save(1); selectElement('saveText').innerHTML = 'Current Save File: #1';" style="position: fixed; z-index:1; font-size: 20px; background-color: gray; border: 4px black solid;">Save File #1</button>
+	<button id="saveFile2" onclick="save(2); selectElement('saveText').innerHTML = 'Current Save File: #2';" style="position: fixed; z-index:1; font-size: 20px; background-color: gray; border: 4px black solid;">Save File #2</button>
+	<button id="saveFile3" onclick="save(3); selectElement('saveText').innerHTML = 'Current Save File: #3';" style="position: fixed; z-index:1; font-size: 20px; background-color: gray; border: 4px black solid;">Save File #3</button>
+	<button id="export" onclick="exportus()" style="position: fixed; font-size: 20px; background-color: gray; border: 4px black solid;">Export</button>
+	<button id="import" onclick="importus()" style="position: fixed; font-size: 20px; background-color: gray; border: 4px black solid;">Import</button>
+	<button id="hardReset" onclick="hardReset();" style="position: fixed; font-size: 20px; background-color: gray; border: 4px black solid;">HARD RESET</button>
+	<button id="toggleOptions" onclick="toggleOptions()" style="position: fixed; transform:rotate(180deg);font-size: 20px; background-color: gray; border: 4px black solid;">v</button>
+	<button id="pause" onclick="position: fixed; selectElement('pause').innerHTML = selectElement('pause').innerHTML=='PAUSE'?'START':'PAUSE';" style="top:800;left:50;position:fixed;height:100px;width:100px;">PAUSE</button>
+	<div id="saveText" style="position: fixed; top: 0; left: 0;">Pick a Save File first</div>
 	<div id="points"></div>
-	<div id="newsBlank" style="overflow: hidden; right; top: 0; left: 0;">
+	<div id="newsBlank" style="position: fixed; overflow: hidden; width: 100dvw; z-index: 1; right; top: 0; left: 0;">
 		<div id="news" style="white-space: nowrap; text-align: center; top: 0; left: 0;"></div>
 	</div>
 	<script>
@@ -169,6 +169,11 @@
 						Object.assign(gameStuff, {[Object.keys(backUp)[i]]: backUp[Object.keys(backUp)[i]]})
 				}
 				gameStuff.offlineTime = gameStuff.offlineTime.add(Decimal.sub(Date.now(), gameStuff.whatTimeIsIt).div(1000))
+				for(let i=0;i<upg.length;i++){
+					pushToTheRight[0] = Math.min(pushToTheRight[0], selectElement("shitass"+upg[i][0]).getBoundingClientRect().left-thatNumber/8)
+				}
+				if(pushToTheRight[0]!=-pushToTheRight[1])
+					pushToTheRight[1] = -pushToTheRight[0]
 			}
 		}
 		
@@ -780,6 +785,11 @@
 				}
 				centerElement(upg[i][0],upg[i][1]+offset[0],-window.innerHeight/2+thatNumber*4+upg[i][2]+thatNumber*2+offset[1])
 			}
+			for(let i=0;i<upg.length;i++){
+				pushToTheRight[0] = Math.min(pushToTheRight[0], selectElement("shitass"+upg[i][0]).getBoundingClientRect().left-thatNumber/8)
+			}
+			if(pushToTheRight[0]!=-pushToTheRight[1])
+				pushToTheRight[1] = -pushToTheRight[0]
 		}
 		
 		function elProgresso(x){
@@ -870,7 +880,6 @@
 					selectElement(upg[i][0]).addEventListener("click", function() {buyIt(upg[i][0])})
 					centerElement(upg[i][0],upg[i][1]+offset[0],-window.innerHeight/2+thatNumber*4+upg[i][2]+thatNumber*2+offset[1])
 					selectElement(upg[i][0]).innerHTML = upgradeText(upg[i][0])
-					pushToTheRight[0] = Math.min(pushToTheRight[0], selectElement("shitass"+upg[i][0]).getBoundingClientRect().left-thatNumber/8)
 				}
 				if(!selectElement(upg[i][0]))
 					continue
@@ -941,21 +950,6 @@
 
 		window.addEventListener("resize", function(){
 			let offset = [pushToTheRight[1],thatNumber*3+(gameStuff.upgrades["7"].gte(1)?thatNumber*3:0)]
-			selectElement("svg").viewBox.baseVal.height = window.innerHeight
-			selectElement("svg").viewBox.baseVal.width = window.innerWidth
-			selectElement("background").style.height = window.innerHeight+445.4
-			selectElement("background").style.width = window.innerWidth+445.4
-			selectElement("holdBackground").style.top = window.scrollY
-			selectElement("holdBackground").style.height = window.innerHeight
-			selectElement("holdBackground").style.width = window.innerWidth
-			selectElement("svg").style.height = window.innerHeight
-			selectElement("svg").style.width = window.innerWidth
-			selectElement("svg").style.left = window.scrollX
-			selectElement("svg").style.top = window.scrollY
-			selectElement("svg").viewBox.baseVal.x = 0
-			selectElement("svg").viewBox.baseVal.y = 0
-			selectElement("svg").viewBox.baseVal.height = window.innerHeight
-			selectElement("svg").viewBox.baseVal.width = window.innerWidth
 			for(let i=0;i<upg.length;i++){
 				if(!selectElement(upg[i][0]))
 					continue
@@ -976,34 +970,6 @@
 
 		window.addEventListener("scroll", function(){
 			let offset = [pushToTheRight[1],thatNumber*3+(gameStuff.upgrades["7"].gte(1)?thatNumber*3:0)]
-			selectElement("holdBackground").style.top = window.scrollY
-			selectElement("holdBackground").style.left = window.scrollX
-			selectElement("saveFile1").style.top = Math.max(window.scrollY, thatNumber*3)+thatNumber
-			selectElement("saveFile2").style.top = Math.max(window.scrollY, thatNumber*3)+thatNumber*2.5-4
-			selectElement("saveFile3").style.top = Math.max(window.scrollY, thatNumber*3)+thatNumber*4-8
-			selectElement("export").style.top = Math.max(window.scrollY, thatNumber*3)+thatNumber*1
-			selectElement("import").style.top = Math.max(window.scrollY, thatNumber*3)+thatNumber*4-8
-			selectElement("hardReset").style.top = Math.max(window.scrollY, thatNumber*3)+thatNumber*5.5-12
-			selectElement("toggleOptions").style.top = Math.max(window.scrollY, thatNumber*3)+thatNumber*(selectElement('toggleOptions').style.transform==""?1:7)-(selectElement('toggleOptions').style.transform==""?0:16)
-			selectElement("saveText").style.top = Math.max(window.scrollY, thatNumber*3)+thatNumber*0.25
-			
-			selectElement("saveFile1").style.left = thatNumber+window.scrollX
-			selectElement("saveFile2").style.left = thatNumber+window.scrollX
-			selectElement("saveFile3").style.left = thatNumber+window.scrollX
-			selectElement("export").style.left = thatNumber*6-4+(window.scrollX)
-			selectElement("import").style.left = thatNumber*6-4+(window.scrollX)
-			selectElement("hardReset").style.left = thatNumber+window.scrollX
-			selectElement("toggleOptions").style.left = thatNumber+window.scrollX
-			selectElement("saveText").style.left = thatNumber+window.scrollX
-			
-			selectElement("svg").style.height = window.innerHeight
-			selectElement("svg").style.width = window.innerWidth
-			selectElement("svg").style.left = window.scrollX
-			selectElement("svg").style.top = window.scrollY
-			selectElement("svg").viewBox.baseVal.x = 0
-			selectElement("svg").viewBox.baseVal.y = 0
-			selectElement("svg").viewBox.baseVal.height = window.innerHeight
-			selectElement("svg").viewBox.baseVal.width = window.innerWidth
 			for(let i=0;i<upg.length;i++){
 				if(!selectElement(upg[i][0]))
 					continue
@@ -1061,6 +1027,15 @@
 			return [pointDiscount]
 		}
 		
+		selectElement("newsBlank").style.height = thatNumber*2+"px"
+		centerElement("newsBlank",scrollX,-window.innerHeight/2+thatNumber)
+		selectElement("newsBlank").style["font-size"] = thatNumber+"px"
+		selectElement("newsBlank").style["background-color"] = "white"
+		selectElement("newsBlank").style["background-color"] = "white"
+		selectElement("newsBlank").style["border-top"] = "4px black solid"
+		selectElement("newsBlank").style["border-bottom"] = "4px black solid"
+		selectElement("newsBlank").style["box-shadow"] = `0px 0px 52px black, inset 0px ${thatNumber/2}px ${thatNumber/2}px -${thatNumber/2}px black, inset 0px -${thatNumber/2}px ${thatNumber/2}px -${thatNumber/2}px black`
+			
 		
 		function runThisShit(){
 			time[1] = new Decimal(Date.now())
@@ -1090,25 +1065,12 @@
 			centerElement("points",scrollX,-window.innerHeight/2+thatNumber+40)
 			selectElement("points").innerHTML=`<br><br><br><br><h1>You have ${[gameStuff.points,gameStuff.anotherPoints][gameStuff.tab].toFixed(2)} ${["points","another points"][gameStuff.tab]}<br>(${getPointGens()[gameStuff.tab].toFixed(2)}/sec)${gameStuff.offlineTime.gte(0.1)?" "+gameStuff.offlineTime.round()+" offline seconds left":""}</h1>`
 			selectElement("points").style.width = window.innerWidth-20+"px"
-			selectElement("newsBlank").style.height = thatNumber*2+"px"
-			selectElement("newsBlank").style.width = window.innerWidth+"px"
-			centerElement("newsBlank",scrollX,-window.innerHeight/2+thatNumber)
-			selectElement("newsBlank").style["font-size"] = thatNumber+"px"
-			selectElement("newsBlank").style["background-color"] = "white"
-			selectElement("newsBlank").style["background-color"] = "white"
-			selectElement("newsBlank").style["border-top"] = "4px black solid"
-			selectElement("newsBlank").style["border-bottom"] = "4px black solid"
-			selectElement("newsBlank").style["box-shadow"] = `0px 0px 52px black, inset 0px ${thatNumber/2}px ${thatNumber/2}px -${thatNumber/2}px black, inset 0px -${thatNumber/2}px ${thatNumber/2}px -${thatNumber/2}px black`
 			centerElement("news",newsIncremental,-window.innerHeight/2+thatNumber)
 			if(gameStuff.currentSaveFile) localStorage.setItem("xxxolegxxx.github.io/tree-roblox-idle-game savefile"+gameStuff.currentSaveFile,JSON.stringify(gameStuff))
 			if(selectElement("A|5:B"))
 				selectElement("A|5:B").style["background-image"] = `linear-gradient(to bottom, black ${upgrades["A|5:B"].xpRequirement().sub(gameStuff["A|5:B"].xp).div(upgrades["A|5:B"].xpRequirement()).mul(100).sub(10)}%, rgb(78,0,0) ${upgrades["A|5:B"].xpRequirement().sub(gameStuff["A|5:B"].xp).div(upgrades["A|5:B"].xpRequirement()).mul(100).add(10)}%)`
 		}
 			centerElement("points",scrollX,-window.innerHeight/2+thatNumber+40)
-			selectElement("background").style.height = window.innerHeight+445.4
-			selectElement("background").style.width = window.innerWidth+445.4
-			selectElement("holdBackground").style.height = window.innerHeight
-			selectElement("holdBackground").style.width = window.innerWidth
 			selectElement("saveFile1").style.height = thatNumber*1.5
 			selectElement("saveFile1").style.width = thatNumber*5
 			selectElement("saveFile1").style.top = thatNumber*4
@@ -1140,14 +1102,6 @@
 			selectElement("toggleOptions").style.left = thatNumber
 			selectElement("saveText").style.top = thatNumber*3.25
 			selectElement("saveText").style.left = thatNumber
-			selectElement("svg").style.height = window.innerHeight
-			selectElement("svg").style.width = window.innerWidth
-			selectElement("svg").style.left = window.scrollX
-			selectElement("svg").style.top = window.scrollY
-			selectElement("svg").viewBox.baseVal.x = 0
-			selectElement("svg").viewBox.baseVal.y = 0
-			selectElement("svg").viewBox.baseVal.height = window.innerHeight
-			selectElement("svg").viewBox.baseVal.width = window.innerWidth
 		let bozo = setInterval(runThisShit, 1000/60)
 	</script>
 </body>
