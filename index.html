@@ -23,12 +23,12 @@
 	}
 	
 	@keyframes bounceAndChange {
-	  0% {transform: translate(-103.5px,-103.5px);}
-	  100% {transform: translate(103.5px,103.5px);}
+	  0% {background-position: 0px 0px;}
+	  100% {background-position: 138px 138px;}
 	}
 	@keyframes ass {
 	  0% {transform: scale(1, 1);}
-	  50% {transform: scale(1.1, 1.1);}
+	  50% {transform: scale(1.02, 1.02);}
 	  100% {transform: scale(1, 1);}
 	}
 	</style>
@@ -36,7 +36,7 @@
 </head>
 <body>
 	<div id="holdBackground" style="overflow: hidden; z-index: -3; top: 0; left: 0;">
-		<div id="background" style="top: 0; left: 0; transform: translate(-207px, -207px); background-image:url('background.png'); animation-composition: add; animation: bounceAndChange 2.811s linear infinite, ass 2.811s ease infinite;"></div>
+		<div id="background" style="top: 0; left: 0; background-image:url('background.png'); animation-composition: add; animation: bounceAndChange 2.811s linear infinite, ass 2.811s ease infinite;"></div>
 	</div>
 	<svg id="svg" style="top: 0; left: 0; pointer-events: none; z-index: -2;" viewBox="0 0 1000 1000"></svg>
 	<button id="saveFile1" onclick="save(1); selectElement('saveText').innerHTML = 'Current Save File: #1';" style="z-index:1; font-size: 20px; background-color: gray; border: 4px black solid;">Save File #1</button>
@@ -53,7 +53,7 @@
 		<div id="news" style="white-space: nowrap; text-align: center; top: 0; left: 0;"></div>
 	</div>
 	<script>
-		let gameStuff = {offlineTime: new Decimal(0), whatTimeIsIt: Date.now(), currentSaveFile: 0, points: new Decimal(0), anotherPoints: new Decimal(0),backgroundValue: new Decimal(0),tab:0, upgrades: {}, "A|5": 0, "A|5:B": {xp: new Decimal(0), level: new Decimal(1)}, "A|5:C": new Decimal(0), id: "xxxolegxxx.github.io/tree-roblox-idle-game"}
+		let gameStuff = {offlineTime: new Decimal(0), whatTimeIsIt: Date.now(), currentSaveFile: 0, points: new Decimal(0), prestigePoints: new Decimal(0), anotherPoints: new Decimal(0),backgroundValue: new Decimal(0),tab:0, upgrades: {}, "A|5": 0, "A|5:B": {xp: new Decimal(0), level: new Decimal(1)}, "A|5:C": new Decimal(0), id: "xxxolegxxx.github.io/tree-roblox-idle-game"}
 		let backUp = gameStuff
 		let time = [new Decimal(Date.now()),new Decimal(0),new Decimal(0)]
 		let tabNames = ["","A|"]
@@ -74,6 +74,8 @@
 			["8",0,thatNumber*49,["7"]],
 			["9",0,thatNumber*56,["8"]],
 			["10",0,thatNumber*63,["9"]],
+			["11",thatNumber*-5,thatNumber*70,["10"]],
+			["P.1",thatNumber*5,thatNumber*70,[]],
 			["A|1",0,0,[]],
 			["A|2:A",thatNumber*-5,thatNumber*7,["A|1"]],
 			["A|2:B",thatNumber*5,thatNumber*7,["A|1"]],
@@ -203,12 +205,13 @@
 		
 		let shadowOptimization = [
 			[addSolidTextShadow(thatNumber/16,"red"),addSolidTextShadow(thatNumber/8,"black"),addSolidTextShadow(thatNumber/32,"red"),addSolidTextShadow(thatNumber/16,"black"),addSolidTextShadow(thatNumber/16,"darkred")],
-			[addSolidTextShadow(thatNumber/16,"crimson"),addSolidTextShadow(thatNumber/8,"black"),addSolidTextShadow(thatNumber/32,"crimson"),addSolidTextShadow(thatNumber/16,"black"),addSolidTextShadow(thatNumber/16,"firebrick")]
+			[addSolidTextShadow(thatNumber/16,"crimson"),addSolidTextShadow(thatNumber/8,"black"),addSolidTextShadow(thatNumber/32,"crimson"),addSolidTextShadow(thatNumber/16,"black"),addSolidTextShadow(thatNumber/16,"firebrick")],
+			[addSolidTextShadow(thatNumber/16,"yellow"),addSolidTextShadow(thatNumber/8,"black"),addSolidTextShadow(thatNumber/32,"yellow"),addSolidTextShadow(thatNumber/16,"black"),addSolidTextShadow(thatNumber/16,"goldenrod")]
 		]
 		
 		
 		function upgradeText(x){
-			return `<h1 id="shitass${x}"style="transform: translate(-50%, -50%); pointer-events: none; text-align: center; height: ${thatNumber*1.6}px; width: ${thatNumber*(Math.max(x.length/2+0.5,1.5))}px; background-color: black; box-shadow: ${upgrades[x].shadowStyle[4]}, ${upgrades[x].shadowStyle[1]}; text-shadow: ${upgrades[x].shadowStyle[0]}, ${upgrades[x].shadowStyle[1]}; font-size:${thatNumber}px; position:absolute;padding: 0; margin: 0;">${x}</h1><h1 style="transform: translate(-50%, 30%); pointer-events: none; text-shadow: ${upgrades[x].shadowStyle[2]}, ${upgrades[x].shadowStyle[3]}; font-size:${thatNumber/2}px; position:absolute;padding: 0; margin: 0;">[${gameStuff.upgrades[x]}${upgrades[x].limit()==Infinity?"":"/"+upgrades[x].limit()}]</h1><br><span style="pointer-events: none; text-shadow: ${upgrades[x].shadowStyle[0]}, ${upgrades[x].shadowStyle[1]}; font-size:${thatNumber}px;">${upgrades[x].title()}</h1><br><span style="text-shadow: ${upgrades[x].shadowStyle[2]}, ${upgrades[x].shadowStyle[3]}; display: block; margin-left: auto; margin-right: auto; width: ${thatNumber*9-thatNumber*1.25}px; font-size:${thatNumber/2}px;">${upgrades[x].desc()}${upgrades[x].effectText()?"<br>"+upgrades[x].effectText():""}${gameStuff.upgrades[x].gte(upgrades[x].limit())?"</span>":upgrades[x].costText()?"<br>"+upgrades[x].costText():""}`
+			return `<h1 id="shitass${x}"style="transform: translate3d(-50%, -50%, 0); pointer-events: none; text-align: center; height: ${thatNumber*1.6}px; width: ${thatNumber*(Math.max(x.length/2+0.5,1.5))}px; background-color: black; box-shadow: ${upgrades[x].shadowStyle[4]}, ${upgrades[x].shadowStyle[1]}; text-shadow: ${upgrades[x].shadowStyle[0]}, ${upgrades[x].shadowStyle[1]}; font-size:${thatNumber}px; position:absolute;padding: 0; margin: 0;">${x}</h1><h1 style="transform: translate3d(-50%, 30%, 0); pointer-events: none; text-shadow: ${upgrades[x].shadowStyle[2]}, ${upgrades[x].shadowStyle[3]}; font-size:${thatNumber/2}px; position:absolute;padding: 0; margin: 0;">[${gameStuff.upgrades[x]}${upgrades[x].limit()==Infinity?"":"/"+upgrades[x].limit()}]</h1><br><span style="pointer-events: none; text-shadow: ${upgrades[x].shadowStyle[0]}, ${upgrades[x].shadowStyle[1]}; font-size:${thatNumber}px;">${upgrades[x].title()}</h1><br><span style="text-shadow: ${upgrades[x].shadowStyle[2]}, ${upgrades[x].shadowStyle[3]}; display: block; margin-left: auto; margin-right: auto; width: ${thatNumber*9-thatNumber*1.25}px; font-size:${thatNumber/2}px;">${upgrades[x].desc()}${upgrades[x].effectText()?"<br>"+upgrades[x].effectText():""}${gameStuff.upgrades[x].gte(upgrades[x].limit())?"</span>":upgrades[x].costText()?"<br>"+upgrades[x].costText():""}`
 		}
 		
 		function totalUpgrades(){
@@ -399,6 +402,36 @@
 				color: "darkred",
 				shadowStyle: shadowOptimization[0],
 				unlocked(){return gameStuff.upgrades["9"].neq(0)},
+			},
+			"11":{
+				title(){return "Omega Power!"},
+				desc(){return "x5.2 point gain, x2.5 another point gain and unlocks prestiging for this world"},
+				baseEffect(){return 0},
+				effect(){return 0},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["points"]},
+				cost(){return [new Decimal(100000).div(getDiscounts()[0])]},
+				costText(){return `Cost: ${this.cost()[0].toFixed(2)} points`},
+				color: "darkred",
+				shadowStyle: shadowOptimization[0],
+				unlocked(){return gameStuff.upgrades["10"].neq(0)},
+			},
+			"P.1":{
+				title(){return "Omega Power!"},
+				desc(){return "x5.2 point gain, x2.5 another point gain and unlocks prestiging for this world"},
+				baseEffect(){return 0},
+				effect(){return 0},
+				effectText(){return false},
+				limit(){return new Decimal(1)},
+				costType(){return ["cost"]},
+				currencyRequired(){return ["prestigePoints"]},
+				cost(){return [new Decimal(100000).div(getDiscounts()[0])]},
+				costText(){return `Cost: ${this.cost()[0].toFixed(2)} prestige points`},
+				color: "goldenrod",
+				shadowStyle: shadowOptimization[2],
+				unlocked(){return gameStuff.upgrades["10"].neq(0)},
 			},
 			"A|1":{
 				title(){return '"Multiplayer" Thematics Ensues'},
@@ -747,7 +780,6 @@
 				}
 				centerElement(upg[i][0],upg[i][1]+offset[0],-window.innerHeight/2+thatNumber*4+upg[i][2]+thatNumber*2+offset[1])
 			}
-			andOneMoreForTheFans()
 		}
 		
 		function elProgresso(x){
@@ -770,17 +802,9 @@
 		function getCenterPosition(id){
 			return {x: document.getElementById(id).getBoundingClientRect().left+document.getElementById(id).getBoundingClientRect().width/2, y: document.getElementById(id).getBoundingClientRect().top+document.getElementById(id).getBoundingClientRect().height/2}
 		}
-		
-		function centerElementHorizontally(x, offset){
-			selectElement(x).style["margin-left"] = (window.innerWidth-document.getElementById(x).getBoundingClientRect().width)/2+offset+"px"
-		}
-		
-		function centerElementVertically(x, offset){
-			selectElement(x).style["margin-top"] = (window.innerHeight-document.getElementById(x).getBoundingClientRect().height)/2+offset+"px"
-		}
+
 		function centerElement(x,xOffset,yOffset){
-			centerElementHorizontally(x, xOffset)
-			centerElementVertically(x, yOffset)
+			selectElement(x).style["transform"] = "translate3d("+((window.innerWidth-document.getElementById(x).getBoundingClientRect().width)/2+xOffset)+"px, "+((window.innerHeight-document.getElementById(x).getBoundingClientRect().height)/2+yOffset)+"px, 0)"
 		}
 		
 		function centerElementRelativeToAnotherElement(x, x2, offset, offset2){ 
@@ -812,35 +836,10 @@
 				Object.assign(gameStuff.upgrades, {[Object.keys(upgrades)[i]]: new Decimal(0)})
 		}
 		
-		function andOneMoreForTheFans(firstTime = true){
-			shouldIAddElements()
-			if(firstTime)
-				pushToTheRight = [0,0]
-			let offset = [pushToTheRight[1],thatNumber*3+(gameStuff.upgrades["7"].gte(1)?thatNumber*3:0)]
-			for(let i=0;i<upg.length;i++){
-				if(selectElement(upg[i][0])){
-					centerElement(upg[i][0],upg[i][1]+offset[0],-window.innerHeight/2+thatNumber*4+upg[i][2]+thatNumber*2+offset[1])
-					pushToTheRight[0] = Math.min(pushToTheRight[0], selectElement("shitass"+upg[i][0]).getBoundingClientRect().left-thatNumber/8)
-				}
-			}
-			for(let i=0;i<upg.length;i++){
-				if(selectElement(upg[i][0])){
-					for(let v=0;v<upg[i][3].length;v++){
-						drawLine("line "+upg[i][0]+" connected with "+upg[i][3][v]+" but with different color",getCenterPosition(upg[i][0]).x,getCenterPosition(upg[i][0]).y,getCenterPosition(upg[i][3][v]).x,getCenterPosition(upg[i][3][v]).y,8,"black")
-						drawLine("line "+upg[i][0]+" connected with "+upg[i][3][v],getCenterPosition(upg[i][0]).x,getCenterPosition(upg[i][0]).y,getCenterPosition(upg[i][3][v]).x,getCenterPosition(upg[i][3][v]).y,4,upgrades[upg[i][0]].color)
-					}
-				}
-			}
-			if(pushToTheRight[0]+pushToTheRight[1]!=0){
-				pushToTheRight[1] = -pushToTheRight[0]
-				andOneMoreForTheFans(false)
-			}
-		}
-		
 		function shouldIAddElements(){
 			let offset = [pushToTheRight[1],thatNumber*3+(gameStuff.upgrades["7"].gte(1)?thatNumber*3:0)]
 			for(let i=0;i<upg.length;i++){
-				if(gameStuff.tab==0 && !Number(upg[i][0])){
+				if(gameStuff.tab==0 && !Number(upg[i][0]) && !upg[i][0].includes("P.")){
 					if(selectElement(upg[i][0])){
 						selectElement(upg[i][0]).remove()
 						for(let v=0;v<upg[i][3].length;v++){
@@ -892,8 +891,8 @@
 					selectElement("tab0").style["border-radius"] =  `${thatNumber}px`
 					selectElement("tab0").style["border"] = `4px black solid`
 					selectElement("tab0").style["box-shadow"] = `inset 0px 0px ${thatNumber/2}px black`
-					selectElement("tab0").innerHTML = `<span style="pointer-events: none; text-shadow: ${addSolidTextShadow(thatNumber/16,"black")}; color:red;position: absolute; width: ${thatNumber*14}; transform: translate(-50%, ${thatNumber}%); font-size:${thatNumber}px;">POINTS</span>`
-					selectElement("tab0").addEventListener("click", function() {gameStuff.tab = 0; andOneMoreForTheFans(); selectElement("background").style.filter = ""})
+					selectElement("tab0").innerHTML = `<span style="pointer-events: none; text-shadow: ${addSolidTextShadow(thatNumber/16,"black")}; color:red;position: absolute; width: ${thatNumber*14}; transform: translate3d(-50%, ${thatNumber}%,0); font-size:${thatNumber}px;">POINTS</span>`
+					selectElement("tab0").addEventListener("click", function() {gameStuff.tab = 0; selectElement("background").style.filter = ""})
 					centerElement("tab0", -thatNumber*6, -window.innerHeight/2+thatNumber*6)
 				}
 				if(!selectElement("tab1")){
@@ -904,8 +903,8 @@
 					selectElement("tab1").style["border-radius"] =  `${thatNumber}px`
 					selectElement("tab1").style["border"] = `4px black solid`
 					selectElement("tab1").style["box-shadow"] = `inset 0px 0px ${thatNumber/2}px black`
-					selectElement("tab1").innerHTML = `<span style="pointer-events: none;  text-shadow: ${addSolidTextShadow(thatNumber/16,"black")}; color:crimson; position: absolute; width: ${thatNumber*14}; transform: translate(-50%, ${thatNumber}%); font-size:${thatNumber}px;">ANOTHER POINTS</span>`
-					selectElement("tab1").addEventListener("click", function() {gameStuff.tab = 1; andOneMoreForTheFans(); selectElement("background").style.filter = "hue-rotate(93.7deg) brightness(75%) contrast(200%)"})
+					selectElement("tab1").innerHTML = `<span style="pointer-events: none;  text-shadow: ${addSolidTextShadow(thatNumber/16,"black")}; color:crimson; position: absolute; width: ${thatNumber*14}; transform: translate3d(-50%, ${thatNumber}%,0); font-size:${thatNumber}px;">ANOTHER POINTS</span>`
+					selectElement("tab1").addEventListener("click", function() {gameStuff.tab = 1; selectElement("background").style.filter = "hue-rotate(93.7deg) brightness(75%) contrast(200%)"})
 					centerElement("tab1", thatNumber*6, -window.innerHeight/2+thatNumber*6)
 				}
 			}
@@ -925,7 +924,8 @@
 					selectElement("prestige0").style["border"] = `4px black solid`
 					selectElement("prestige0").style["box-shadow"] = `inset 0px 0px ${thatNumber/2}px black`
 					selectElement("prestige0").style["z-index"] = -1
-					selectElement("prestige0").innerHTML = `<span style="pointer-events: none; text-shadow: ${addSolidTextShadow(thatNumber/16,"black")}; color:red;position: absolute; width: ${thatNumber*14}; transform: translate(-50%, -${thatNumber/2}%); font-size:${thatNumber/2}px;">DEMO END</span>`
+					selectElement("prestige0").innerHTML = `<span style="pointer-events: none; text-shadow: ${addSolidTextShadow(thatNumber/16,"black")}; color:red;position: absolute; width: ${thatNumber*14}; transform: translate3d(-50%, -${thatNumber/2}%,0); font-size:${thatNumber/2}px;">+${prestigePointGains()[0]}</span>`
+					selectElement("prestige0").addEventListener("click", function() {console.log("btich")})
 				}
 				centerElement("prestige0", -thatNumber*6, -window.innerHeight/2+thatNumber*7.375)
 			}
@@ -933,6 +933,10 @@
 				if(selectElement("prestige0"))
 					selectElement("prestige0").remove()
 			}
+		}
+		
+		function prestigePointGains(){
+			return [gameStuff.points.div(1000000).pow(0.5).floor()]
 		}
 
 		window.addEventListener("resize", function(){
@@ -968,7 +972,6 @@
 			centerElement("tab0", -thatNumber*6+scrollX, -window.innerHeight/2+thatNumber*6)
 			if(selectElement("tab1"))
 			centerElement("tab1", thatNumber*6+scrollX, -window.innerHeight/2+thatNumber*6)
-			andOneMoreForTheFans()
 		})
 
 		window.addEventListener("scroll", function(){
@@ -1017,7 +1020,6 @@
 			centerElement("tab0", -thatNumber*6+scrollX, -window.innerHeight/2+thatNumber*6)
 			if(selectElement("tab1"))
 			centerElement("tab1", thatNumber*6+scrollX, -window.innerHeight/2+thatNumber*6)
-			andOneMoreForTheFans()
 		})
 		
 		function getPointGens(){
